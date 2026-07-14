@@ -1,0 +1,191 @@
+[
+  {
+    "objectID": "research.html",
+    "href": "research.html",
+    "title": "Research",
+    "section": "",
+    "text": "Geodesics & Hyperbolicity of Taxicab Half-Plane Space\n\n\n\nresearch\n\ngeometry\n\nmathematics\n\n\n\nUndergraduate research blending the hyperbolic half-plane model with taxicab geometry — poster session at the 2025 Seattle University STEM Research Summit.\n\n\n\n\n\nOct 1, 2025\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "research/taxicab-hyperbolic-geometry.html",
+    "href": "research/taxicab-hyperbolic-geometry.html",
+    "title": "Geodesics & Hyperbolicity of Taxicab Half-Plane Space",
+    "section": "",
+    "text": "With Kevin Lin, Alina Potapyev, and faculty advisor Dr. Dylan Helliwell, Department of Mathematics, Seattle University. Funded by the College of Science and Engineering Summer Research program. Presented at the 2025 Seattle University STEM Research Summit and the 2026 PNW MAA conference."
+  },
+  {
+    "objectID": "research/taxicab-hyperbolic-geometry.html#poster",
+    "href": "research/taxicab-hyperbolic-geometry.html#poster",
+    "title": "Geodesics & Hyperbolicity of Taxicab Half-Plane Space",
+    "section": "Poster",
+    "text": "Poster\n\n\nDownload the poster (PDF)"
+  },
+  {
+    "objectID": "research/taxicab-hyperbolic-geometry.html#what-the-research-is-about",
+    "href": "research/taxicab-hyperbolic-geometry.html#what-the-research-is-about",
+    "title": "Geodesics & Hyperbolicity of Taxicab Half-Plane Space",
+    "section": "What the research is about",
+    "text": "What the research is about\nWe built a new geometric space by blending the half-plane model of the hyperbolic plane with taxicab (\\(L^1\\)) geometry, then asked whether the result is still “hyperbolic” in the rigorous sense Gromov defined for general metric spaces — a property that underlies a lot of modern geometric group theory.\nFor \\(m \\in [0,1]\\), the space is \\(\\left(\\mathbb{H}_m^2, \\lVert\\cdot\\rVert_m\\right)\\), where\n\\[\\mathbb{H}_m^2 = \\{x = (x_1, x_2) \\in \\mathbb{R}^2 : x_2 &gt; m x_1\\}, \\qquad \\lVert v \\rVert_{m,x} = \\frac{|v_1| + |v_2|}{x_2 - m x_1}.\\]\nInstead of the usual Euclidean norm on each tangent space (as in the standard hyperbolic half-plane), we put a taxicab norm there, scaled by distance to a boundary line at infinity that tilts as \\(m\\) varies from \\(0\\) (horizontal boundary) toward \\(1\\).\nGeodesics. By minimizing arc length \\(L(\\gamma) = \\int_0^1 \\lVert \\gamma'(t)\\rVert_m\\, dt\\) over curves connecting two points, we showed the shortest paths are concatenations of a coordinate-horizontal and a coordinate-vertical segment — an axis-aligned “corner” path, very much in the spirit of taxicab geometry, but now living on a curved boundary. This directly produces a closed-form distance function on \\(\\mathbb{H}_m^2\\).\nHyperbolicity. With a distance function in hand, we tested Gromov’s \\(\\delta\\)-hyperbolicity condition: for all points \\(x,y,z,w\\),\n\\[G(x,y;w) \\ge \\min\\{G(x,z;w),\\, G(y,z;w)\\} - \\delta, \\qquad G(x,y;z) = \\tfrac12\\big(d(x,z)+d(y,z)\\big) - d(x,y).\\]\nThrough case analysis on the geometry of how points sit relative to the boundary at infinity, we derived an explicit bound\n\\[f(x,y,z,w) \\le \\tfrac12 \\ln\\!\\left(\\frac{\\Omega(x,y)\\,\\Omega(z,w)}{\\max\\{\\Omega(x,z)\\Omega(y,w),\\ \\Omega(x,w)\\Omega(y,z)\\}}\\right) + \\tfrac{3}{2m}\\ln\\!\\left(\\frac{1+m}{1-m}\\right),\\]\nshowing \\(\\mathbb{H}_m^2\\) is \\(\\delta\\)-hyperbolic for a \\(\\delta\\) depending only on \\(m\\).\nOpen questions. The \\(m=1\\) (fully slanted) case, extensions to higher dimensions with horizontal or slanted hyperplanes at infinity, and behavior under quotient spaces are all open — see the poster’s Future Work panel."
+  },
+  {
+    "objectID": "research/taxicab-hyperbolic-geometry.html#play-with-taxicab-distance",
+    "href": "research/taxicab-hyperbolic-geometry.html#play-with-taxicab-distance",
+    "title": "Geodesics & Hyperbolicity of Taxicab Half-Plane Space",
+    "section": "Play with taxicab distance",
+    "text": "Play with taxicab distance\nThe core idea underneath all of this — swap the usual straight-line (“Euclidean”) notion of distance for the taxicab one — is easiest to build intuition for with a plain grid. Drag the sliders to move point B and compare the two notions of “shortest path” from A to B.\n\n\nCode\nviewof bx = Inputs.range([-6, 6], {value: 4, step: 1, label: \"Point B — x\"})\n\n\n\n\n\n\n\n\n\nCode\nviewof by = Inputs.range([-6, 6], {value: 3, step: 1, label: \"Point B — y\"})\n\n\n\n\n\n\n\n\n\nCode\nviewof showCircles = Inputs.toggle({label: \"Show equal-distance \\\"circles\\\" around A\", value: false})\n\n\n\n\n\n\n\n\n\nCode\ntaxicabPlot = {\n  const width = 480, height = 480, pad = 30;\n  const domain = 7;\n  const scale = (width - 2 * pad) / (2 * domain);\n  const toSvgX = x =&gt; pad + (x + domain) * scale;\n  const toSvgY = y =&gt; height - pad - (y + domain) * scale;\n\n  const svg = d3.create(\"svg\")\n      .attr(\"viewBox\", [0, 0, width, height])\n      .attr(\"width\", width)\n      .attr(\"height\", height)\n      .style(\"font-family\", \"sans-serif\")\n      .style(\"font-size\", \"11px\");\n\n  for (let i = -domain; i &lt;= domain; i++) {\n    svg.append(\"line\")\n       .attr(\"x1\", toSvgX(i)).attr(\"x2\", toSvgX(i))\n       .attr(\"y1\", toSvgY(-domain)).attr(\"y2\", toSvgY(domain))\n       .attr(\"stroke\", \"#ddd\").attr(\"stroke-width\", i === 0 ? 1.5 : 0.5);\n    svg.append(\"line\")\n       .attr(\"y1\", toSvgY(i)).attr(\"y2\", toSvgY(i))\n       .attr(\"x1\", toSvgX(-domain)).attr(\"x2\", toSvgX(domain))\n       .attr(\"stroke\", \"#ddd\").attr(\"stroke-width\", i === 0 ? 1.5 : 0.5);\n  }\n\n  const dTaxi = Math.abs(bx) + Math.abs(by);\n\n  if (showCircles && dTaxi &gt; 0) {\n    svg.append(\"circle\")\n       .attr(\"cx\", toSvgX(0)).attr(\"cy\", toSvgY(0))\n       .attr(\"r\", dTaxi * scale)\n       .attr(\"fill\", \"none\").attr(\"stroke\", \"#a22c29\")\n       .attr(\"stroke-dasharray\", \"4,3\").attr(\"stroke-width\", 1.5);\n\n    const pts = [[dTaxi, 0], [0, dTaxi], [-dTaxi, 0], [0, -dTaxi]]\n      .map(([x, y]) =&gt; `${toSvgX(x)},${toSvgY(y)}`).join(\" \");\n    svg.append(\"polygon\").attr(\"points\", pts)\n       .attr(\"fill\", \"#b9baa3\").attr(\"fill-opacity\", 0.25)\n       .attr(\"stroke\", \"#556b2f\").attr(\"stroke-width\", 1.5);\n  }\n\n  svg.append(\"line\")\n     .attr(\"x1\", toSvgX(0)).attr(\"y1\", toSvgY(0))\n     .attr(\"x2\", toSvgX(bx)).attr(\"y2\", toSvgY(by))\n     .attr(\"stroke\", \"#a22c29\").attr(\"stroke-width\", 2).attr(\"stroke-dasharray\", \"6,4\");\n\n  svg.append(\"polyline\")\n     .attr(\"points\", `${toSvgX(0)},${toSvgY(0)} ${toSvgX(bx)},${toSvgY(0)} ${toSvgX(bx)},${toSvgY(by)}`)\n     .attr(\"fill\", \"none\").attr(\"stroke\", \"#2c6ea2\").attr(\"stroke-width\", 2.5);\n\n  svg.append(\"circle\").attr(\"cx\", toSvgX(0)).attr(\"cy\", toSvgY(0)).attr(\"r\", 5).attr(\"fill\", \"#111\");\n  svg.append(\"text\").attr(\"x\", toSvgX(0) + 8).attr(\"y\", toSvgY(0) - 8).text(\"A\");\n\n  svg.append(\"circle\").attr(\"cx\", toSvgX(bx)).attr(\"cy\", toSvgY(by)).attr(\"r\", 5).attr(\"fill\", \"#2c6ea2\");\n  svg.append(\"text\").attr(\"x\", toSvgX(bx) + 8).attr(\"y\", toSvgY(by) - 8).text(\"B\");\n\n  return svg.node();\n}\n\n\n\n\n\n\n\n\n\nCode\nmd`**Euclidean distance (dashed red line):** ${Math.hypot(bx, by).toFixed(2)}\n**Taxicab distance (blue \"city block\" path):** ${Math.abs(bx) + Math.abs(by)}\n\n${showCircles ? \"The dashed red circle is every point at the Euclidean distance you see above from A. The green **diamond** is every point at that *same number* of taxicab blocks from A — under the taxicab metric, that diamond is a perfect \\\"circle.\\\"\" : \"\"}`\n\n\n\n\n\n\n\nEvery red-dashed line above is the only shortest Euclidean path between A and B. The blue path is just one shortest taxicab path — any staircase of unit right/up steps from A to B has exactly the same taxicab length, since you can’t do better than the total horizontal and vertical distance combined. That’s the same idea driving the poster above: once you replace the notion of “straight line” with a taxicab norm, distances, shortest paths, and even circles change shape — and the research asks how far that idea can be pushed while keeping the space provably hyperbolic."
+  },
+  {
+    "objectID": "projects/amr-load-balancing.html",
+    "href": "projects/amr-load-balancing.html",
+    "title": "AMR Load Balancing: LPT vs. Hilbert Curve Scheduling",
+    "section": "",
+    "text": "Full source and companion notebooks: github.com/diffeqsolver/amr-load-balancing-simulation."
+  },
+  {
+    "objectID": "projects/amr-load-balancing.html#the-problem",
+    "href": "projects/amr-load-balancing.html#the-problem",
+    "title": "AMR Load Balancing: LPT vs. Hilbert Curve Scheduling",
+    "section": "The problem",
+    "text": "The problem\nIn parallel scientific computing, solving PDEs on high-resolution grids is expensive. Adaptive Mesh Refinement (AMR) helps by dynamically allocating high-resolution blocks only where the physics is steep (shock fronts, combustion fronts) and keeping the rest of the domain coarse.\nThat creates a new problem: once the grid is refined, the resulting blocks — of varying size and cost — must be distributed across \\(P\\) processors. Two costs compete:\n\nComputational load imbalance — the slowest processor sets the pace for the whole step.\nCommunication overhead — neighboring blocks assigned to different processors must exchange boundary (guard-cell) data over the network, which is slow.\n\nFor a communication-cost scaling factor \\(\\beta\\), the makespan of a step is:\n\\[\\text{Makespan} = \\max_{p} \\left( T_{\\text{comp}}(p) + T_{\\text{comm}}(p) \\right)\\]\nThis notebook-turned-article builds a 2D AMR grid around a moving shock wave, then compares two classic partitioning heuristics on that exact makespan."
+  },
+  {
+    "objectID": "projects/amr-load-balancing.html#the-grid-environment",
+    "href": "projects/amr-load-balancing.html#the-grid-environment",
+    "title": "AMR Load Balancing: LPT vs. Hilbert Curve Scheduling",
+    "section": "The grid environment",
+    "text": "The grid environment\nBlocks recursively refine near a diagonal shock front; blocks intersecting the shock carry up to 5x the baseline workload. An adjacency graph tracks boundary overlap length between neighboring blocks, since that overlap is what drives communication cost.\n\n\nCode\nimport numpy as np\nimport matplotlib.pyplot as plt\nimport matplotlib.patches as patches\n\nclass AMREnvironment:\n    def __init__(self, domain_size=16.0, base_block_size=4.0, beta=0.25):\n        self.domain_size = domain_size\n        self.base_block_size = base_block_size\n        self.beta = beta\n        self.blocks = []\n        self.adj = {}  # block_id -&gt; list of (neighbor_id, overlap_length)\n\n    def generate_grid(self, shock_pos=8.0, shock_angle=np.pi / 4, shock_width=2.5, shock_intensity=5.0):\n        self.blocks = []\n        self.adj = {}\n        cos_a, sin_a = np.cos(shock_angle), np.sin(shock_angle)\n\n        def refine_recursive(x, y, level, size):\n            cx, cy = x + size / 2.0, y + size / 2.0\n            dist = abs(cx * cos_a + cy * sin_a - shock_pos)\n            should_refine = (level &lt; 2) and (dist &lt; shock_width / (level + 1))\n            if should_refine:\n                half = size / 2.0\n                sub_blocks = []\n                for dx in [0.0, half]:\n                    for dy in [0.0, half]:\n                        sub_blocks.extend(refine_recursive(x + dx, y + dy, level + 1, half))\n                return sub_blocks\n            workload = 1.0\n            if dist &lt; shock_width:\n                workload = 1.0 + (shock_intensity - 1.0) * (1.0 - dist / shock_width)\n            return [{\"x\": x, \"y\": y, \"level\": level, \"size\": size, \"workload\": workload}]\n\n        num_base_blocks = int(self.domain_size / self.base_block_size)\n        raw_blocks = []\n        for i in range(num_base_blocks):\n            for j in range(num_base_blocks):\n                raw_blocks.extend(\n                    refine_recursive(i * self.base_block_size, j * self.base_block_size, 0, self.base_block_size)\n                )\n\n        for idx, block in enumerate(raw_blocks):\n            block[\"id\"] = idx\n            self.blocks.append(block)\n            self.adj[idx] = []\n        self._compute_adjacencies()\n\n    def _compute_adjacencies(self):\n        n = len(self.blocks)\n        for i in range(n):\n            b1 = self.blocks[i]\n            for j in range(i + 1, n):\n                b2 = self.blocks[j]\n                x_touch = (abs(b1[\"x\"] + b1[\"size\"] - b2[\"x\"]) &lt; 1e-9) or (abs(b2[\"x\"] + b2[\"size\"] - b1[\"x\"]) &lt; 1e-9)\n                y_overlap = max(0.0, min(b1[\"y\"] + b1[\"size\"], b2[\"y\"] + b2[\"size\"]) - max(b1[\"y\"], b2[\"y\"]))\n                y_touch = (abs(b1[\"y\"] + b1[\"size\"] - b2[\"y\"]) &lt; 1e-9) or (abs(b2[\"y\"] + b2[\"size\"] - b1[\"y\"]) &lt; 1e-9)\n                x_overlap = max(0.0, min(b1[\"x\"] + b1[\"size\"], b2[\"x\"] + b2[\"size\"]) - max(b1[\"x\"], b2[\"x\"]))\n                overlap = 0.0\n                if x_touch and y_overlap &gt; 1e-9:\n                    overlap = y_overlap\n                elif y_touch and x_overlap &gt; 1e-9:\n                    overlap = x_overlap\n                if overlap &gt; 0.0:\n                    self.adj[b1[\"id\"]].append((b2[\"id\"], overlap))\n                    self.adj[b2[\"id\"]].append((b1[\"id\"], overlap))\n\n    def evaluate_assignment(self, assignment, num_processors):\n        comp_loads = np.zeros(num_processors)\n        comm_costs = np.zeros(num_processors)\n        for idx, block in enumerate(self.blocks):\n            p = assignment[idx]\n            comp_loads[p] += block[\"workload\"]\n            for neighbor_id, overlap in self.adj[block[\"id\"]]:\n                if p != assignment[neighbor_id]:\n                    comm_costs[p] += self.beta * overlap\n        total_loads = comp_loads + comm_costs\n        mean_comp = np.mean(comp_loads)\n        load_imbalance = (np.max(comp_loads) - np.min(comp_loads)) / mean_comp if mean_comp &gt; 0 else 0.0\n        return {\n            \"makespan\": np.max(total_loads),\n            \"comp_makespan\": np.max(comp_loads),\n            \"load_imbalance\": load_imbalance,\n            \"total_comp\": np.sum(comp_loads),\n            \"total_comm\": np.sum(comm_costs),\n        }"
+  },
+  {
+    "objectID": "projects/amr-load-balancing.html#two-scheduling-heuristics",
+    "href": "projects/amr-load-balancing.html#two-scheduling-heuristics",
+    "title": "AMR Load Balancing: LPT vs. Hilbert Curve Scheduling",
+    "section": "Two scheduling heuristics",
+    "text": "Two scheduling heuristics\nLPT (Largest Processing Time) sorts blocks by workload, descending, and greedily assigns each to the currently least-loaded processor. It’s spatially blind — great load balance, no regard for locality.\nHilbert space-filling curve (SFC) maps each block’s 2D center onto a 1D Hilbert index, sorts by that index, and slices the resulting line into \\(P\\) contiguous chunks. Because the Hilbert curve preserves 2D locality, this keeps neighboring blocks together — at some cost to perfect load balance.\n\n\nCode\ndef xy2d(n, x, y):\n    d = 0\n    s = n // 2\n    while s &gt; 0:\n        rx = (x & s) &gt; 0\n        ry = (y & s) &gt; 0\n        d += s * s * ((3 * rx) ^ ry)\n        if ry == 0:\n            if rx == 1:\n                x, y = n - 1 - x, n - 1 - y\n            x, y = y, x\n        s //= 2\n    return d\n\n\ndef lpt_schedule(env, num_processors):\n    num_blocks = len(env.blocks)\n    assignment = np.zeros(num_blocks, dtype=int)\n    block_workloads = sorted(\n        [(i, block[\"workload\"]) for i, block in enumerate(env.blocks)], key=lambda x: x[1], reverse=True\n    )\n    processor_loads = np.zeros(num_processors)\n    for idx, workload in block_workloads:\n        min_proc = np.argmin(processor_loads)\n        assignment[idx] = min_proc\n        processor_loads[min_proc] += workload\n    return assignment\n\n\ndef hilbert_schedule(env, num_processors):\n    num_blocks = len(env.blocks)\n    if num_blocks == 0:\n        return np.array([], dtype=int)\n    n_hilbert = 2 ** int(np.ceil(np.log2(env.domain_size)))\n    block_hilbert = []\n    for i, b in enumerate(env.blocks):\n        cx, cy = b[\"x\"] + b[\"size\"] / 2.0, b[\"y\"] + b[\"size\"] / 2.0\n        ix = int(np.clip(cx, 0, n_hilbert - 1))\n        iy = int(np.clip(cy, 0, n_hilbert - 1))\n        block_hilbert.append((i, xy2d(n_hilbert, ix, iy), b[\"workload\"]))\n    block_hilbert.sort(key=lambda x: x[1])\n    sorted_indices = [x[0] for x in block_hilbert]\n    sorted_workloads = [x[2] for x in block_hilbert]\n    prefix_sums = np.cumsum(sorted_workloads)\n    total_load = prefix_sums[-1]\n    targets = [k * (total_load / num_processors) for k in range(1, num_processors)]\n    split_indices = [np.argmin(np.abs(prefix_sums - t)) for t in targets]\n    sorted_assignment = np.zeros(num_blocks, dtype=int)\n    p = 0\n    for i in range(num_blocks):\n        sorted_assignment[i] = p\n        if p &lt; len(split_indices) and i == split_indices[p]:\n            p += 1\n    assignment = np.zeros(num_blocks, dtype=int)\n    for sorted_idx, orig_idx in enumerate(sorted_indices):\n        assignment[orig_idx] = sorted_assignment[sorted_idx]\n    return assignment"
+  },
+  {
+    "objectID": "projects/amr-load-balancing.html#generating-a-refined-grid",
+    "href": "projects/amr-load-balancing.html#generating-a-refined-grid",
+    "title": "AMR Load Balancing: LPT vs. Hilbert Curve Scheduling",
+    "section": "Generating a refined grid",
+    "text": "Generating a refined grid\nA diagonal shock wave at \\(x\\cos(\\pi/4) + y\\sin(\\pi/4) = 11.3\\) drives the refinement: blocks near the front split down to level 2, and blocks intersecting the shock get up to 5x the workload of a quiet-region block.\n\n\nCode\ndef plot_grid(env, assignment=None, num_processors=4, title=\"AMR Grid Partitioning\",\n              shock_pos=8.0, shock_angle=np.pi / 4, shock_width=2.5, ax=None):\n    if ax is None:\n        fig, ax = plt.subplots(figsize=(6, 6))\n    ax.set_xlim(0, env.domain_size)\n    ax.set_ylim(0, env.domain_size)\n    ax.set_aspect(\"equal\")\n\n    if assignment is not None:\n        cmap = plt.colormaps.get_cmap(\"tab10\")\n        colors = [cmap(i % 10) for i in range(num_processors)]\n    else:\n        level_colors = {0: \"#e0f3f8\", 1: \"#9ecae1\", 2: \"#3182bd\"}\n\n    for i, block in enumerate(env.blocks):\n        x, y, size = block[\"x\"], block[\"y\"], block[\"size\"]\n        facecolor = colors[assignment[i]] if assignment is not None else level_colors.get(block[\"level\"], \"#ffffff\")\n        rect = patches.Rectangle((x, y), size, size, linewidth=1.0, edgecolor=\"#333333\", facecolor=facecolor, alpha=0.85)\n        ax.add_patch(rect)\n\n    cos_a, sin_a = np.cos(shock_angle), np.sin(shock_angle)\n    x_vals = np.linspace(0, env.domain_size, 100)\n    y_vals = (shock_pos - x_vals * cos_a) / sin_a\n    valid = (y_vals &gt;= 0) & (y_vals &lt;= env.domain_size)\n    ax.plot(x_vals[valid], y_vals[valid], color=\"#e31a1c\", linestyle=\"--\", linewidth=2, label=\"Shock front\")\n\n    ax.set_title(title, fontsize=11, weight=\"bold\")\n    ax.set_xlabel(\"X\")\n    ax.set_ylabel(\"Y\")\n    ax.grid(True, linestyle=\":\", alpha=0.4)\n    if assignment is not None:\n        handles = [patches.Patch(facecolor=colors[p], edgecolor=\"#333333\", label=f\"Proc {p}\") for p in range(num_processors)]\n    else:\n        handles = [patches.Patch(facecolor=level_colors[lvl], edgecolor=\"#333333\", label=f\"Level {lvl}\") for lvl in [0, 1, 2]]\n    ax.legend(handles=handles, loc=\"upper right\", fontsize=8, framealpha=0.9)\n    return ax\n\n\ndomain_size, base_block_size, beta = 16.0, 4.0, 0.3\nshock_pos, shock_angle = 11.3, np.pi / 4\n\nenv = AMREnvironment(domain_size, base_block_size, beta)\nenv.generate_grid(shock_pos=shock_pos, shock_angle=shock_angle, shock_width=2.2, shock_intensity=5.0)\n\nprint(f\"Generated {len(env.blocks)} leaf blocks, total workload {sum(b['workload'] for b in env.blocks):.2f}\")\n\nfig, ax = plt.subplots(figsize=(6, 6))\nplot_grid(env, title=\"AMR refinement levels near the shock front\", shock_pos=shock_pos, shock_angle=shock_angle, shock_width=2.2, ax=ax)\nplt.show()\n\n\nGenerated 52 leaf blocks, total workload 170.46"
+  },
+  {
+    "objectID": "projects/amr-load-balancing.html#lpt-vs.-hilbert-side-by-side",
+    "href": "projects/amr-load-balancing.html#lpt-vs.-hilbert-side-by-side",
+    "title": "AMR Load Balancing: LPT vs. Hilbert Curve Scheduling",
+    "section": "LPT vs. Hilbert, side by side",
+    "text": "LPT vs. Hilbert, side by side\n\n\nCode\nnum_processors = 4\nlpt_assign = lpt_schedule(env, num_processors)\nhilbert_assign = hilbert_schedule(env, num_processors)\n\nfig, axes = plt.subplots(1, 2, figsize=(12, 6))\nplot_grid(env, assignment=lpt_assign, num_processors=num_processors,\n          title=\"LPT — balanced load, fragmented domains\", shock_pos=shock_pos, shock_angle=shock_angle, shock_width=2.2, ax=axes[0])\nplot_grid(env, assignment=hilbert_assign, num_processors=num_processors,\n          title=\"Hilbert SFC — contiguous bands\", shock_pos=shock_pos, shock_angle=shock_angle, shock_width=2.2, ax=axes[1])\nplt.tight_layout()\nplt.show()\n\n\n\n\n\n\n\n\n\nLPT scatters same-colored blocks across the whole domain — perfectly balanced compute, but neighboring blocks constantly land on different processors, driving up communication. Hilbert keeps each processor’s blocks in a contiguous spatial band, cutting communication at the cost of a slightly less even load."
+  },
+  {
+    "objectID": "projects/amr-load-balancing.html#makespan-comparison",
+    "href": "projects/amr-load-balancing.html#makespan-comparison",
+    "title": "AMR Load Balancing: LPT vs. Hilbert Curve Scheduling",
+    "section": "Makespan comparison",
+    "text": "Makespan comparison\n\n\nCode\nimport pandas as pd\n\nresults = {\n    \"LPT (greedy bin-pack)\": env.evaluate_assignment(lpt_assign, num_processors),\n    \"Hilbert curve SFC\": env.evaluate_assignment(hilbert_assign, num_processors),\n}\npd.DataFrame(results).T[[\"makespan\", \"comp_makespan\", \"total_comm\", \"load_imbalance\"]].round(3)\n\n\n\n\n\n\n\n\n\nmakespan\ncomp_makespan\ntotal_comm\nload_imbalance\n\n\n\n\nLPT (greedy bin-pack)\n64.215\n42.615\n79.2\n0.000\n\n\nHilbert curve SFC\n50.615\n44.615\n21.6\n0.094"
+  },
+  {
+    "objectID": "projects/amr-load-balancing.html#takeaways",
+    "href": "projects/amr-load-balancing.html#takeaways",
+    "title": "AMR Load Balancing: LPT vs. Hilbert Curve Scheduling",
+    "section": "Takeaways",
+    "text": "Takeaways\n\nLPT wins on raw load balance (imbalance often under 1%) but pays for it in communication cost — its partitions are spatially fragmented.\nHilbert SFC accepts a slightly higher load imbalance in exchange for dramatically lower communication cost, since it preserves spatial locality.\nWhich one wins on makespan depends on \\(\\beta\\) — the relative cost of communication vs. computation. On a high-latency interconnect, Hilbert’s locality advantage outweighs its imbalance; on a fast one, LPT’s tighter balance can win outright.\nThe open problem: a scheduler that gets LPT’s load-splitting power and Hilbert’s spatial awareness, cheaply enough to run every refinement step. That combination is still an active area in HPC scheduling research."
+  },
+  {
+    "objectID": "projects.html",
+    "href": "projects.html",
+    "title": "Projects",
+    "section": "",
+    "text": "Stochastic Volatility & Option Pricing — Heston Model\n\n\n\nquant finance\n\nC++\n\nmonte carlo\n\npython\n\n\n\nA hybrid C++/Python option pricing engine comparing multi-threaded Monte Carlo simulation against a semi-analytic Fourier pricer.\n\n\n\nJun 8, 2026\n\n\n\n\n\n\n\n\n\n\n\nAMR Load Balancing: LPT vs. Hilbert Curve Scheduling\n\n\n\nscientific computing\n\nparallel computing\n\nsimulation\n\n\n\nA 2D adaptive mesh refinement simulator comparing greedy load-balancing against space-filling-curve partitioning.\n\n\n\nMay 1, 2026\n\n\n\n\n\n\n\n\n\n\n\nGaussian Process Metamodeling for Financial Valuation\n\n\n\nmachine learning\n\ngaussian processes\n\nquant finance\n\n\n\nGP regression metamodels for fair-market valuation across a 190K-contract variable-annuity portfolio.\n\n\n\nJan 1, 2026\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "projects/gaussian-process-valuation.html",
+    "href": "projects/gaussian-process-valuation.html",
+    "title": "Gaussian Process Metamodeling for Financial Valuation",
+    "section": "",
+    "text": "Note\n\n\n\nThis page is a working outline — full write-up and code walkthrough coming later. The underlying dataset and production pipeline are not public, so this project won’t have an executable demo like the Heston model; this outline covers the methodology and findings."
+  },
+  {
+    "objectID": "projects/gaussian-process-valuation.html#problem",
+    "href": "projects/gaussian-process-valuation.html#problem",
+    "title": "Gaussian Process Metamodeling for Financial Valuation",
+    "section": "Problem",
+    "text": "Problem\n\nPredict fair-market value across a 190,000-contract variable-annuity portfolio without running the full, expensive actuarial valuation on every contract.\nGoal: a fast, accurate metamodel that approximates the expensive valuation function well enough to replace it in scenario analysis."
+  },
+  {
+    "objectID": "projects/gaussian-process-valuation.html#data-pipeline",
+    "href": "projects/gaussian-process-valuation.html#data-pipeline",
+    "title": "Gaussian Process Metamodeling for Financial Valuation",
+    "section": "Data pipeline",
+    "text": "Data pipeline\n\nLatin Hypercube scenario reduction to cut down the number of economic scenarios needed for training while preserving coverage of the input space.\nOne-hot encoding of categorical contract features.\nFeature scaling pipeline ahead of GP training."
+  },
+  {
+    "objectID": "projects/gaussian-process-valuation.html#modeling",
+    "href": "projects/gaussian-process-valuation.html#modeling",
+    "title": "Gaussian Process Metamodeling for Financial Valuation",
+    "section": "Modeling",
+    "text": "Modeling\n\nGaussian Process regression via GPyTorch.\nBenchmarked 6 GP configurations:\n\nKernels: RBF, Matérn-5/2, Exponential\nMean priors: constant, linear\n\nBaselines: k-nearest neighbors, linear regression."
+  },
+  {
+    "objectID": "projects/gaussian-process-valuation.html#evaluation",
+    "href": "projects/gaussian-process-valuation.html#evaluation",
+    "title": "Gaussian Process Metamodeling for Financial Valuation",
+    "section": "Evaluation",
+    "text": "Evaluation\n\nMetrics: R², RMSE, BIC.\nGP models outperformed both baselines on accuracy across the board.\nARD (Automatic Relevance Determination) lengthscales analyzed post-hoc to rank predictor significance — i.e., which contract/scenario features the model relies on most."
+  },
+  {
+    "objectID": "projects/gaussian-process-valuation.html#stack",
+    "href": "projects/gaussian-process-valuation.html#stack",
+    "title": "Gaussian Process Metamodeling for Financial Valuation",
+    "section": "Stack",
+    "text": "Stack\nPython · GPyTorch · scikit-learn · Pandas"
+  },
+  {
+    "objectID": "projects/heston-model.html",
+    "href": "projects/heston-model.html",
+    "title": "Stochastic Volatility & Option Pricing — Heston Model",
+    "section": "",
+    "text": "This project implements a hybrid C++/Python option pricing framework under the Heston stochastic volatility model, comparing a multi-threaded Monte Carlo path simulator against a closed-form semi-analytic Fourier transform pricer. The full build-up — from first-principles probability, to Brownian motion, to SDEs, to the Heston model itself — along with all source code, lives in the GitHub repo.\nThe asset price and its instantaneous variance evolve as a pair of correlated SDEs:\n\\[dS_t = \\mu S_t\\, dt + \\sqrt{v_t}\\, S_t\\, dW_t^{(1)}\\] \\[dv_t = \\kappa(\\theta - v_t)\\, dt + \\xi \\sqrt{v_t}\\, dW_t^{(2)}\\]\nwith \\(dW_t^{(1)} dW_t^{(2)} = \\rho\\, dt\\)."
+  },
+  {
+    "objectID": "projects/heston-model.html#overview",
+    "href": "projects/heston-model.html#overview",
+    "title": "Stochastic Volatility & Option Pricing — Heston Model",
+    "section": "",
+    "text": "This project implements a hybrid C++/Python option pricing framework under the Heston stochastic volatility model, comparing a multi-threaded Monte Carlo path simulator against a closed-form semi-analytic Fourier transform pricer. The full build-up — from first-principles probability, to Brownian motion, to SDEs, to the Heston model itself — along with all source code, lives in the GitHub repo.\nThe asset price and its instantaneous variance evolve as a pair of correlated SDEs:\n\\[dS_t = \\mu S_t\\, dt + \\sqrt{v_t}\\, S_t\\, dW_t^{(1)}\\] \\[dv_t = \\kappa(\\theta - v_t)\\, dt + \\xi \\sqrt{v_t}\\, dW_t^{(2)}\\]\nwith \\(dW_t^{(1)} dW_t^{(2)} = \\rho\\, dt\\)."
+  },
+  {
+    "objectID": "projects/heston-model.html#what-i-built",
+    "href": "projects/heston-model.html#what-i-built",
+    "title": "Stochastic Volatility & Option Pricing — Heston Model",
+    "section": "What I built",
+    "text": "What I built\n\nA semi-analytic Fourier pricer using the Gatheral/Albrecher stable formulation of the Heston characteristic function, integrated via scipy.integrate.quad.\nA multi-threaded Monte Carlo engine written in C++ (Log-Euler scheme for the price process, full-truncation for variance) and exposed to Python via pybind11.\nSimulated up to 100K paths to evaluate Monte Carlo convergence against the semi-analytic baseline with 95% confidence intervals.\nA custom Matplotlib plotting suite for dual-axis overlays and side-by-side benchmark visualizations."
+  },
+  {
+    "objectID": "projects/heston-model.html#results",
+    "href": "projects/heston-model.html#results",
+    "title": "Stochastic Volatility & Option Pricing — Heston Model",
+    "section": "Results",
+    "text": "Results\nA simulated Heston path, showing the asset price responding to its own stochastic, mean-reverting variance process:\n\n\n\nSimulated asset price with its overlaid instantaneous variance path.\n\n\nMonte Carlo price estimates converge tightly to the semi-analytic solution as path count grows, and the C++ engine delivers a consistent speedup over the pure-Python Monte Carlo implementation:\n\n\n\nMonte Carlo convergence to the semi-analytic price (left) and C++ vs. Python runtime across path counts (right).\n\n\nThe multi-threaded C++ implementation achieves roughly a 3–5x speedup over pure Python at large path counts, while both converge to the same semi-analytic option price of 10.39."
+  },
+  {
+    "objectID": "projects/heston-model.html#stack",
+    "href": "projects/heston-model.html#stack",
+    "title": "Stochastic Volatility & Option Pricing — Heston Model",
+    "section": "Stack",
+    "text": "Stack\nPython · C++ (pybind11, C++11 threads) · NumPy · SciPy · Matplotlib"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Luke Lawrence",
+    "section": "",
+    "text": "Hi, I’m Luke — a Math major (Computer Science minor) at Seattle University, expected June 2027, working at the intersection of stochastic calculus, machine learning, and numerical computing.\nMy recent work spans stochastic volatility modeling and option pricing, Gaussian process metamodeling for financial valuation, and undergraduate research in non-Euclidean geometry (recipient of the Jane E. Mills Award for Undergraduate Research in Mathematics). I’ve also shipped full-stack, LLM-backed product features as a software engineering intern.\n\nProjects — quant finance, ML, and scientific computing builds\nResearch — write-ups and explorations\n\nReach me at lukalawrence24@gmail.com, on GitHub, or on LinkedIn."
+  },
+  {
+    "objectID": "index.html#about",
+    "href": "index.html#about",
+    "title": "Luke Lawrence",
+    "section": "",
+    "text": "Hi, I’m Luke — a Math major (Computer Science minor) at Seattle University, expected June 2027, working at the intersection of stochastic calculus, machine learning, and numerical computing.\nMy recent work spans stochastic volatility modeling and option pricing, Gaussian process metamodeling for financial valuation, and undergraduate research in non-Euclidean geometry (recipient of the Jane E. Mills Award for Undergraduate Research in Mathematics). I’ve also shipped full-stack, LLM-backed product features as a software engineering intern.\n\nProjects — quant finance, ML, and scientific computing builds\nResearch — write-ups and explorations\n\nReach me at lukalawrence24@gmail.com, on GitHub, or on LinkedIn."
+  }
+]

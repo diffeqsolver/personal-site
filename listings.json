@@ -1,0 +1,16 @@
+[
+  {
+    "listing": "/research.html",
+    "items": [
+      "/research/taxicab-hyperbolic-geometry.html"
+    ]
+  },
+  {
+    "listing": "/projects.html",
+    "items": [
+      "/projects/heston-model.html",
+      "/projects/amr-load-balancing.html",
+      "/projects/gaussian-process-valuation.html"
+    ]
+  }
+]
