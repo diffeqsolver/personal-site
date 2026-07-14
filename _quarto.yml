@@ -13,6 +13,8 @@ website:
         text: Projects
       - href: research.qmd
         text: Research
+      - href: macro.qmd
+        text: Macro Notes
     right:
       - icon: github
         href: https://github.com/diffeqsolver

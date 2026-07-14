@@ -1,0 +1,43 @@
+---
+title: "Term Structure Modeling & Recession Signals"
+description: "Fitting short-rate models to the Treasury curve and backtesting the term-spread recession signal — plus a running, dated view on what the current curve is saying."
+date: 2026-07-14
+categories: [macro, interest rates, time series]
+---
+
+::: {.callout-note}
+This page is a working outline. The modeling work and the first dated view note are still in progress — check back for updates as the project develops.
+:::
+
+## Motivation
+
+Every quantitative finance skill on this site so far (Heston SDEs, Gaussian Process metamodeling) is about *pricing* or *estimation* given a model of the world. This project is different: it's about forming and defending an actual view on where the economy is headed, using the same stochastic-modeling toolkit pointed at a new problem — the Treasury yield curve.
+
+## Plan
+
+**Phase 1 — data and baseline**
+
+- Pull historical Treasury yields (3-month, 2-year, 10-year) from FRED, plus NBER recession dates (`USREC`).
+- Reproduce the standard term-spread-vs-recession chart as a baseline, not the deliverable.
+
+**Phase 2 — modeling**
+
+- Fit a one-factor short-rate model (Vasicek or CIR — the same math as the variance process in the [Heston pricer](../projects/heston-model.qmd), applied to a new problem) to historical short-rate data via MLE, and track how the fitted mean-reversion speed and volatility shift across hiking/cutting cycles.
+- Build a recession-probability model in the spirit of the NY Fed's term-spread probit approach, and backtest it honestly — including where it's missed or mistimed historically.
+- Stretch goal: a regime-switching (HMM) model over macro and market data to identify expansion/contraction states unsupervised, checked against actual NBER dates.
+
+**Phase 3 — the actual view**
+
+- A short, dated, opinionated note on what the current curve and the fitted model say, where it agrees or disagrees with the consensus narrative, and why.
+- Revisited on a quarterly cadence rather than published once — the point is a running view, not a one-off report.
+
+## Data sources
+
+- FRED: `DGS3MO`, `DGS2`, `DGS10` (Treasury yields), `FEDFUNDS`, `USREC` (NBER recession indicator).
+
+## Open questions
+
+- How much of the term-spread signal's historical predictive power survives post-2008 zero/negative-rate distortions and post-2022 QT?
+- Does a fitted CIR mean-reversion parameter shift detectably *ahead of* NBER-dated turning points, or only concurrently?
+
+Stack: `Python` · `FRED API` · `NumPy` · `SciPy` · `statsmodels`
