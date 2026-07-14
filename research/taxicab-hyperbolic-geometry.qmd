@@ -5,7 +5,7 @@ date: 2025-10-01
 categories: [research, geometry, mathematics]
 ---
 
-With **Kevin Lin**, **Alina Potapyev**, and faculty advisor **Dr. Dylan Helliwell**, Department of Mathematics, Seattle University. Funded by the College of Science and Engineering Summer Research program. Presented at the **2025 Seattle University STEM Research Summit** and the **2026 PNW MAA conference**.
+Research done with a faculty-advised student team under **Dr. Dylan Helliwell**, Department of Mathematics, Seattle University. Funded by the College of Science and Engineering Summer Research program. Presented at the **2025 Seattle University STEM Research Summit** and the **2026 PNW MAA conference**.
 
 ## Poster
 
