@@ -1,0 +1,14 @@
+---
+title: "Luke Lawrence"
+---
+
+## About
+
+Hi, I'm Luke — a Math major (Computer Science minor) at Seattle University, expected June 2027, working at the intersection of stochastic calculus, machine learning, and numerical computing.
+
+My recent work spans stochastic volatility modeling and option pricing, Gaussian process metamodeling for financial valuation, and undergraduate research in non-Euclidean geometry (recipient of the Jane E. Mills Award for Undergraduate Research in Mathematics). I've also shipped full-stack, LLM-backed product features as a software engineering intern.
+
+- **[Projects](projects.qmd)** — quant finance, ML, and scientific computing builds
+- **[Research](research.qmd)** — write-ups and explorations
+
+Reach me at [lukalawrence24@gmail.com](mailto:lukalawrence24@gmail.com), on [GitHub](https://github.com/diffeqsolver), or on [LinkedIn](https://linkedin.com/in/luke-lawrence).

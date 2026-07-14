@@ -1,0 +1,40 @@
+project:
+  type: website
+  output-dir: _site
+
+website:
+  title: "Luke Lawrence"
+  description: "Personal projects and research"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - href: projects.qmd
+        text: Projects
+      - href: research.qmd
+        text: Research
+    right:
+      - icon: github
+        href: https://github.com/diffeqsolver
+      - icon: linkedin
+        href: https://linkedin.com/in/luke-lawrence
+      - icon: envelope
+        href: mailto:lukalawrence24@gmail.com
+  page-footer:
+    center: "© 2026 Luke Lawrence"
+  page-navigation: true
+
+format:
+  html:
+    theme:
+      light: flatly
+      dark: darkly
+    css: styles.css
+    toc: true
+    code-fold: true
+    smooth-scroll: true
+    grid:
+      body-width: 900px
+
+execute:
+  freeze: auto

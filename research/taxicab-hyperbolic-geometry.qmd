@@ -1,0 +1,130 @@
+---
+title: "Geodesics & Hyperbolicity of Taxicab Half-Plane Space"
+description: "Undergraduate research blending the hyperbolic half-plane model with taxicab geometry — poster session at the 2025 Seattle University STEM Research Summit."
+date: 2025-10-01
+categories: [research, geometry, mathematics]
+---
+
+With **Kevin Lin**, **Alina Potapyev**, and faculty advisor **Dr. Dylan Helliwell**, Department of Mathematics, Seattle University. Funded by the College of Science and Engineering Summer Research program. Presented at the **2025 Seattle University STEM Research Summit** and the **2026 PNW MAA conference**.
+
+## Poster
+
+<iframe src="files/poster-hyperbolicity.pdf" width="100%" height="700" style="border:1px solid #ccc; border-radius:4px;">
+</iframe>
+
+[Download the poster (PDF)](files/poster-hyperbolicity.pdf)
+
+## What the research is about
+
+We built a new geometric space by blending the **half-plane model of the hyperbolic plane** with **taxicab ($L^1$) geometry**, then asked whether the result is still "hyperbolic" in the rigorous sense Gromov defined for general metric spaces — a property that underlies a lot of modern geometric group theory.
+
+For $m \in [0,1]$, the space is $\left(\mathbb{H}_m^2, \lVert\cdot\rVert_m\right)$, where
+
+$$\mathbb{H}_m^2 = \{x = (x_1, x_2) \in \mathbb{R}^2 : x_2 > m x_1\}, \qquad \lVert v \rVert_{m,x} = \frac{|v_1| + |v_2|}{x_2 - m x_1}.$$
+
+Instead of the usual Euclidean norm on each tangent space (as in the standard hyperbolic half-plane), we put a **taxicab norm** there, scaled by distance to a boundary line at infinity that tilts as $m$ varies from $0$ (horizontal boundary) toward $1$.
+
+**Geodesics.** By minimizing arc length $L(\gamma) = \int_0^1 \lVert \gamma'(t)\rVert_m\, dt$ over curves connecting two points, we showed the shortest paths are concatenations of a coordinate-horizontal and a coordinate-vertical segment — an axis-aligned "corner" path, very much in the spirit of taxicab geometry, but now living on a curved boundary. This directly produces a closed-form distance function on $\mathbb{H}_m^2$.
+
+**Hyperbolicity.** With a distance function in hand, we tested Gromov's $\delta$-hyperbolicity condition: for all points $x,y,z,w$,
+
+$$G(x,y;w) \ge \min\{G(x,z;w),\, G(y,z;w)\} - \delta, \qquad G(x,y;z) = \tfrac12\big(d(x,z)+d(y,z)\big) - d(x,y).$$
+
+Through case analysis on the geometry of how points sit relative to the boundary at infinity, we derived an explicit bound
+
+$$f(x,y,z,w) \le \tfrac12 \ln\!\left(\frac{\Omega(x,y)\,\Omega(z,w)}{\max\{\Omega(x,z)\Omega(y,w),\ \Omega(x,w)\Omega(y,z)\}}\right) + \tfrac{3}{2m}\ln\!\left(\frac{1+m}{1-m}\right),$$
+
+showing $\mathbb{H}_m^2$ is $\delta$-hyperbolic for a $\delta$ depending only on $m$.
+
+**Open questions.** The $m=1$ (fully slanted) case, extensions to higher dimensions with horizontal or slanted hyperplanes at infinity, and behavior under quotient spaces are all open — see the poster's *Future Work* panel.
+
+## Play with taxicab distance
+
+The core idea underneath all of this — swap the usual straight-line ("Euclidean") notion of distance for the taxicab one — is easiest to build intuition for with a plain grid. Drag the sliders to move point B and compare the two notions of "shortest path" from A to B.
+
+```{ojs}
+//| echo: false
+viewof bx = Inputs.range([-6, 6], {value: 4, step: 1, label: "Point B — x"})
+```
+
+```{ojs}
+//| echo: false
+viewof by = Inputs.range([-6, 6], {value: 3, step: 1, label: "Point B — y"})
+```
+
+```{ojs}
+//| echo: false
+viewof showCircles = Inputs.toggle({label: "Show equal-distance \"circles\" around A", value: false})
+```
+
+```{ojs}
+//| echo: false
+taxicabPlot = {
+  const width = 480, height = 480, pad = 30;
+  const domain = 7;
+  const scale = (width - 2 * pad) / (2 * domain);
+  const toSvgX = x => pad + (x + domain) * scale;
+  const toSvgY = y => height - pad - (y + domain) * scale;
+
+  const svg = d3.create("svg")
+      .attr("viewBox", [0, 0, width, height])
+      .attr("width", width)
+      .attr("height", height)
+      .style("font-family", "sans-serif")
+      .style("font-size", "11px");
+
+  for (let i = -domain; i <= domain; i++) {
+    svg.append("line")
+       .attr("x1", toSvgX(i)).attr("x2", toSvgX(i))
+       .attr("y1", toSvgY(-domain)).attr("y2", toSvgY(domain))
+       .attr("stroke", "#ddd").attr("stroke-width", i === 0 ? 1.5 : 0.5);
+    svg.append("line")
+       .attr("y1", toSvgY(i)).attr("y2", toSvgY(i))
+       .attr("x1", toSvgX(-domain)).attr("x2", toSvgX(domain))
+       .attr("stroke", "#ddd").attr("stroke-width", i === 0 ? 1.5 : 0.5);
+  }
+
+  const dTaxi = Math.abs(bx) + Math.abs(by);
+
+  if (showCircles && dTaxi > 0) {
+    svg.append("circle")
+       .attr("cx", toSvgX(0)).attr("cy", toSvgY(0))
+       .attr("r", dTaxi * scale)
+       .attr("fill", "none").attr("stroke", "#a22c29")
+       .attr("stroke-dasharray", "4,3").attr("stroke-width", 1.5);
+
+    const pts = [[dTaxi, 0], [0, dTaxi], [-dTaxi, 0], [0, -dTaxi]]
+      .map(([x, y]) => `${toSvgX(x)},${toSvgY(y)}`).join(" ");
+    svg.append("polygon").attr("points", pts)
+       .attr("fill", "#b9baa3").attr("fill-opacity", 0.25)
+       .attr("stroke", "#556b2f").attr("stroke-width", 1.5);
+  }
+
+  svg.append("line")
+     .attr("x1", toSvgX(0)).attr("y1", toSvgY(0))
+     .attr("x2", toSvgX(bx)).attr("y2", toSvgY(by))
+     .attr("stroke", "#a22c29").attr("stroke-width", 2).attr("stroke-dasharray", "6,4");
+
+  svg.append("polyline")
+     .attr("points", `${toSvgX(0)},${toSvgY(0)} ${toSvgX(bx)},${toSvgY(0)} ${toSvgX(bx)},${toSvgY(by)}`)
+     .attr("fill", "none").attr("stroke", "#2c6ea2").attr("stroke-width", 2.5);
+
+  svg.append("circle").attr("cx", toSvgX(0)).attr("cy", toSvgY(0)).attr("r", 5).attr("fill", "#111");
+  svg.append("text").attr("x", toSvgX(0) + 8).attr("y", toSvgY(0) - 8).text("A");
+
+  svg.append("circle").attr("cx", toSvgX(bx)).attr("cy", toSvgY(by)).attr("r", 5).attr("fill", "#2c6ea2");
+  svg.append("text").attr("x", toSvgX(bx) + 8).attr("y", toSvgY(by) - 8).text("B");
+
+  return svg.node();
+}
+```
+
+```{ojs}
+//| echo: false
+md`**Euclidean distance (dashed red line):** ${Math.hypot(bx, by).toFixed(2)}
+**Taxicab distance (blue "city block" path):** ${Math.abs(bx) + Math.abs(by)}
+
+${showCircles ? "The dashed red circle is every point at the Euclidean distance you see above from A. The green **diamond** is every point at that *same number* of taxicab blocks from A — under the taxicab metric, that diamond is a perfect \"circle.\"" : ""}`
+```
+
+Every red-dashed line above is the *only* shortest Euclidean path between A and B. The blue path is just *one* shortest taxicab path — any staircase of unit right/up steps from A to B has exactly the same taxicab length, since you can't do better than the total horizontal and vertical distance combined. That's the same idea driving the poster above: once you replace the notion of "straight line" with a taxicab norm, distances, shortest paths, and even circles change shape — and the research asks how far that idea can be pushed while keeping the space provably hyperbolic.

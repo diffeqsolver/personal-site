@@ -1,0 +1,11 @@
+---
+title: "Research"
+listing:
+  contents: research
+  type: default
+  sort: "date desc"
+  categories: true
+  fields: [title, description, date, categories]
+page-layout: full
+title-block-banner: false
+---

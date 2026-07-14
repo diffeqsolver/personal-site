@@ -1,0 +1,278 @@
+---
+title: "AMR Load Balancing: LPT vs. Hilbert Curve Scheduling"
+description: "A 2D adaptive mesh refinement simulator comparing greedy load-balancing against space-filling-curve partitioning."
+date: 2026-05-01
+categories: [scientific computing, parallel computing, simulation]
+format:
+  html:
+    code-fold: true
+    code-tools: true
+---
+
+Full source and companion notebooks: [github.com/diffeqsolver/amr-load-balancing-simulation](https://github.com/diffeqsolver/amr-load-balancing-simulation).
+
+## The problem
+
+In parallel scientific computing, solving PDEs on high-resolution grids is expensive. **Adaptive Mesh Refinement (AMR)** helps by dynamically allocating high-resolution blocks only where the physics is steep (shock fronts, combustion fronts) and keeping the rest of the domain coarse.
+
+That creates a new problem: once the grid is refined, the resulting blocks — of varying size and cost — must be distributed across $P$ processors. Two costs compete:
+
+1. **Computational load imbalance** — the slowest processor sets the pace for the whole step.
+2. **Communication overhead** — neighboring blocks assigned to *different* processors must exchange boundary (guard-cell) data over the network, which is slow.
+
+For a communication-cost scaling factor $\beta$, the makespan of a step is:
+
+$$\text{Makespan} = \max_{p} \left( T_{\text{comp}}(p) + T_{\text{comm}}(p) \right)$$
+
+This notebook-turned-article builds a 2D AMR grid around a moving shock wave, then compares two classic partitioning heuristics on that exact makespan.
+
+## The grid environment
+
+Blocks recursively refine near a diagonal shock front; blocks intersecting the shock carry up to 5x the baseline workload. An adjacency graph tracks boundary overlap length between neighboring blocks, since that overlap is what drives communication cost.
+
+```{python}
+import numpy as np
+import matplotlib.pyplot as plt
+import matplotlib.patches as patches
+
+class AMREnvironment:
+    def __init__(self, domain_size=16.0, base_block_size=4.0, beta=0.25):
+        self.domain_size = domain_size
+        self.base_block_size = base_block_size
+        self.beta = beta
+        self.blocks = []
+        self.adj = {}  # block_id -> list of (neighbor_id, overlap_length)
+
+    def generate_grid(self, shock_pos=8.0, shock_angle=np.pi / 4, shock_width=2.5, shock_intensity=5.0):
+        self.blocks = []
+        self.adj = {}
+        cos_a, sin_a = np.cos(shock_angle), np.sin(shock_angle)
+
+        def refine_recursive(x, y, level, size):
+            cx, cy = x + size / 2.0, y + size / 2.0
+            dist = abs(cx * cos_a + cy * sin_a - shock_pos)
+            should_refine = (level < 2) and (dist < shock_width / (level + 1))
+            if should_refine:
+                half = size / 2.0
+                sub_blocks = []
+                for dx in [0.0, half]:
+                    for dy in [0.0, half]:
+                        sub_blocks.extend(refine_recursive(x + dx, y + dy, level + 1, half))
+                return sub_blocks
+            workload = 1.0
+            if dist < shock_width:
+                workload = 1.0 + (shock_intensity - 1.0) * (1.0 - dist / shock_width)
+            return [{"x": x, "y": y, "level": level, "size": size, "workload": workload}]
+
+        num_base_blocks = int(self.domain_size / self.base_block_size)
+        raw_blocks = []
+        for i in range(num_base_blocks):
+            for j in range(num_base_blocks):
+                raw_blocks.extend(
+                    refine_recursive(i * self.base_block_size, j * self.base_block_size, 0, self.base_block_size)
+                )
+
+        for idx, block in enumerate(raw_blocks):
+            block["id"] = idx
+            self.blocks.append(block)
+            self.adj[idx] = []
+        self._compute_adjacencies()
+
+    def _compute_adjacencies(self):
+        n = len(self.blocks)
+        for i in range(n):
+            b1 = self.blocks[i]
+            for j in range(i + 1, n):
+                b2 = self.blocks[j]
+                x_touch = (abs(b1["x"] + b1["size"] - b2["x"]) < 1e-9) or (abs(b2["x"] + b2["size"] - b1["x"]) < 1e-9)
+                y_overlap = max(0.0, min(b1["y"] + b1["size"], b2["y"] + b2["size"]) - max(b1["y"], b2["y"]))
+                y_touch = (abs(b1["y"] + b1["size"] - b2["y"]) < 1e-9) or (abs(b2["y"] + b2["size"] - b1["y"]) < 1e-9)
+                x_overlap = max(0.0, min(b1["x"] + b1["size"], b2["x"] + b2["size"]) - max(b1["x"], b2["x"]))
+                overlap = 0.0
+                if x_touch and y_overlap > 1e-9:
+                    overlap = y_overlap
+                elif y_touch and x_overlap > 1e-9:
+                    overlap = x_overlap
+                if overlap > 0.0:
+                    self.adj[b1["id"]].append((b2["id"], overlap))
+                    self.adj[b2["id"]].append((b1["id"], overlap))
+
+    def evaluate_assignment(self, assignment, num_processors):
+        comp_loads = np.zeros(num_processors)
+        comm_costs = np.zeros(num_processors)
+        for idx, block in enumerate(self.blocks):
+            p = assignment[idx]
+            comp_loads[p] += block["workload"]
+            for neighbor_id, overlap in self.adj[block["id"]]:
+                if p != assignment[neighbor_id]:
+                    comm_costs[p] += self.beta * overlap
+        total_loads = comp_loads + comm_costs
+        mean_comp = np.mean(comp_loads)
+        load_imbalance = (np.max(comp_loads) - np.min(comp_loads)) / mean_comp if mean_comp > 0 else 0.0
+        return {
+            "makespan": np.max(total_loads),
+            "comp_makespan": np.max(comp_loads),
+            "load_imbalance": load_imbalance,
+            "total_comp": np.sum(comp_loads),
+            "total_comm": np.sum(comm_costs),
+        }
+```
+
+## Two scheduling heuristics
+
+**LPT (Largest Processing Time)** sorts blocks by workload, descending, and greedily assigns each to the currently least-loaded processor. It's spatially blind — great load balance, no regard for locality.
+
+**Hilbert space-filling curve (SFC)** maps each block's 2D center onto a 1D Hilbert index, sorts by that index, and slices the resulting line into $P$ contiguous chunks. Because the Hilbert curve preserves 2D locality, this keeps neighboring blocks together — at some cost to perfect load balance.
+
+```{python}
+def xy2d(n, x, y):
+    d = 0
+    s = n // 2
+    while s > 0:
+        rx = (x & s) > 0
+        ry = (y & s) > 0
+        d += s * s * ((3 * rx) ^ ry)
+        if ry == 0:
+            if rx == 1:
+                x, y = n - 1 - x, n - 1 - y
+            x, y = y, x
+        s //= 2
+    return d
+
+
+def lpt_schedule(env, num_processors):
+    num_blocks = len(env.blocks)
+    assignment = np.zeros(num_blocks, dtype=int)
+    block_workloads = sorted(
+        [(i, block["workload"]) for i, block in enumerate(env.blocks)], key=lambda x: x[1], reverse=True
+    )
+    processor_loads = np.zeros(num_processors)
+    for idx, workload in block_workloads:
+        min_proc = np.argmin(processor_loads)
+        assignment[idx] = min_proc
+        processor_loads[min_proc] += workload
+    return assignment
+
+
+def hilbert_schedule(env, num_processors):
+    num_blocks = len(env.blocks)
+    if num_blocks == 0:
+        return np.array([], dtype=int)
+    n_hilbert = 2 ** int(np.ceil(np.log2(env.domain_size)))
+    block_hilbert = []
+    for i, b in enumerate(env.blocks):
+        cx, cy = b["x"] + b["size"] / 2.0, b["y"] + b["size"] / 2.0
+        ix = int(np.clip(cx, 0, n_hilbert - 1))
+        iy = int(np.clip(cy, 0, n_hilbert - 1))
+        block_hilbert.append((i, xy2d(n_hilbert, ix, iy), b["workload"]))
+    block_hilbert.sort(key=lambda x: x[1])
+    sorted_indices = [x[0] for x in block_hilbert]
+    sorted_workloads = [x[2] for x in block_hilbert]
+    prefix_sums = np.cumsum(sorted_workloads)
+    total_load = prefix_sums[-1]
+    targets = [k * (total_load / num_processors) for k in range(1, num_processors)]
+    split_indices = [np.argmin(np.abs(prefix_sums - t)) for t in targets]
+    sorted_assignment = np.zeros(num_blocks, dtype=int)
+    p = 0
+    for i in range(num_blocks):
+        sorted_assignment[i] = p
+        if p < len(split_indices) and i == split_indices[p]:
+            p += 1
+    assignment = np.zeros(num_blocks, dtype=int)
+    for sorted_idx, orig_idx in enumerate(sorted_indices):
+        assignment[orig_idx] = sorted_assignment[sorted_idx]
+    return assignment
+```
+
+## Generating a refined grid
+
+A diagonal shock wave at $x\cos(\pi/4) + y\sin(\pi/4) = 11.3$ drives the refinement: blocks near the front split down to level 2, and blocks intersecting the shock get up to 5x the workload of a quiet-region block.
+
+```{python}
+def plot_grid(env, assignment=None, num_processors=4, title="AMR Grid Partitioning",
+              shock_pos=8.0, shock_angle=np.pi / 4, shock_width=2.5, ax=None):
+    if ax is None:
+        fig, ax = plt.subplots(figsize=(6, 6))
+    ax.set_xlim(0, env.domain_size)
+    ax.set_ylim(0, env.domain_size)
+    ax.set_aspect("equal")
+
+    if assignment is not None:
+        cmap = plt.colormaps.get_cmap("tab10")
+        colors = [cmap(i % 10) for i in range(num_processors)]
+    else:
+        level_colors = {0: "#e0f3f8", 1: "#9ecae1", 2: "#3182bd"}
+
+    for i, block in enumerate(env.blocks):
+        x, y, size = block["x"], block["y"], block["size"]
+        facecolor = colors[assignment[i]] if assignment is not None else level_colors.get(block["level"], "#ffffff")
+        rect = patches.Rectangle((x, y), size, size, linewidth=1.0, edgecolor="#333333", facecolor=facecolor, alpha=0.85)
+        ax.add_patch(rect)
+
+    cos_a, sin_a = np.cos(shock_angle), np.sin(shock_angle)
+    x_vals = np.linspace(0, env.domain_size, 100)
+    y_vals = (shock_pos - x_vals * cos_a) / sin_a
+    valid = (y_vals >= 0) & (y_vals <= env.domain_size)
+    ax.plot(x_vals[valid], y_vals[valid], color="#e31a1c", linestyle="--", linewidth=2, label="Shock front")
+
+    ax.set_title(title, fontsize=11, weight="bold")
+    ax.set_xlabel("X")
+    ax.set_ylabel("Y")
+    ax.grid(True, linestyle=":", alpha=0.4)
+    if assignment is not None:
+        handles = [patches.Patch(facecolor=colors[p], edgecolor="#333333", label=f"Proc {p}") for p in range(num_processors)]
+    else:
+        handles = [patches.Patch(facecolor=level_colors[lvl], edgecolor="#333333", label=f"Level {lvl}") for lvl in [0, 1, 2]]
+    ax.legend(handles=handles, loc="upper right", fontsize=8, framealpha=0.9)
+    return ax
+
+
+domain_size, base_block_size, beta = 16.0, 4.0, 0.3
+shock_pos, shock_angle = 11.3, np.pi / 4
+
+env = AMREnvironment(domain_size, base_block_size, beta)
+env.generate_grid(shock_pos=shock_pos, shock_angle=shock_angle, shock_width=2.2, shock_intensity=5.0)
+
+print(f"Generated {len(env.blocks)} leaf blocks, total workload {sum(b['workload'] for b in env.blocks):.2f}")
+
+fig, ax = plt.subplots(figsize=(6, 6))
+plot_grid(env, title="AMR refinement levels near the shock front", shock_pos=shock_pos, shock_angle=shock_angle, shock_width=2.2, ax=ax)
+plt.show()
+```
+
+## LPT vs. Hilbert, side by side
+
+```{python}
+num_processors = 4
+lpt_assign = lpt_schedule(env, num_processors)
+hilbert_assign = hilbert_schedule(env, num_processors)
+
+fig, axes = plt.subplots(1, 2, figsize=(12, 6))
+plot_grid(env, assignment=lpt_assign, num_processors=num_processors,
+          title="LPT — balanced load, fragmented domains", shock_pos=shock_pos, shock_angle=shock_angle, shock_width=2.2, ax=axes[0])
+plot_grid(env, assignment=hilbert_assign, num_processors=num_processors,
+          title="Hilbert SFC — contiguous bands", shock_pos=shock_pos, shock_angle=shock_angle, shock_width=2.2, ax=axes[1])
+plt.tight_layout()
+plt.show()
+```
+
+LPT scatters same-colored blocks across the whole domain — perfectly balanced compute, but neighboring blocks constantly land on different processors, driving up communication. Hilbert keeps each processor's blocks in a contiguous spatial band, cutting communication at the cost of a slightly less even load.
+
+## Makespan comparison
+
+```{python}
+import pandas as pd
+
+results = {
+    "LPT (greedy bin-pack)": env.evaluate_assignment(lpt_assign, num_processors),
+    "Hilbert curve SFC": env.evaluate_assignment(hilbert_assign, num_processors),
+}
+pd.DataFrame(results).T[["makespan", "comp_makespan", "total_comm", "load_imbalance"]].round(3)
+```
+
+## Takeaways
+
+- **LPT** wins on raw load balance (imbalance often under 1%) but pays for it in communication cost — its partitions are spatially fragmented.
+- **Hilbert SFC** accepts a slightly higher load imbalance in exchange for dramatically lower communication cost, since it preserves spatial locality.
+- **Which one wins on makespan depends on $\beta$** — the relative cost of communication vs. computation. On a high-latency interconnect, Hilbert's locality advantage outweighs its imbalance; on a fast one, LPT's tighter balance can win outright.
+- The open problem: a scheduler that gets LPT's load-splitting power *and* Hilbert's spatial awareness, cheaply enough to run every refinement step. That combination is still an active area in HPC scheduling research.

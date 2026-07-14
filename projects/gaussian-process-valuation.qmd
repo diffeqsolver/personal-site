@@ -1,0 +1,39 @@
+---
+title: "Gaussian Process Metamodeling for Financial Valuation"
+description: "GP regression metamodels for fair-market valuation across a 190K-contract variable-annuity portfolio."
+date: 2026-01-01
+categories: [machine learning, gaussian processes, quant finance]
+---
+
+::: {.callout-note}
+This page is a working outline — full write-up and code walkthrough coming later. The underlying dataset and production pipeline are not public, so this project won't have an executable demo like the [Heston model](heston-model.qmd); this outline covers the methodology and findings.
+:::
+
+## Problem
+
+- Predict fair-market value across a **190,000-contract** variable-annuity portfolio without running the full, expensive actuarial valuation on every contract.
+- Goal: a fast, accurate **metamodel** that approximates the expensive valuation function well enough to replace it in scenario analysis.
+
+## Data pipeline
+
+- **Latin Hypercube scenario reduction** to cut down the number of economic scenarios needed for training while preserving coverage of the input space.
+- **One-hot encoding** of categorical contract features.
+- **Feature scaling** pipeline ahead of GP training.
+
+## Modeling
+
+- Gaussian Process regression via **GPyTorch**.
+- Benchmarked **6 GP configurations**:
+  - Kernels: RBF, Matérn-5/2, Exponential
+  - Mean priors: constant, linear
+- Baselines: k-nearest neighbors, linear regression.
+
+## Evaluation
+
+- Metrics: **R²**, **RMSE**, **BIC**.
+- GP models outperformed both baselines on accuracy across the board.
+- **ARD (Automatic Relevance Determination) lengthscales** analyzed post-hoc to rank predictor significance — i.e., which contract/scenario features the model relies on most.
+
+## Stack
+
+`Python` · `GPyTorch` · `scikit-learn` · `Pandas`
