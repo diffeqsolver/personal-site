@@ -2,30 +2,38 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://diffeqsolver.github.io/personal-site/research.html</loc>
-    <lastmod>2026-07-14T06:48:54.732Z</lastmod>
-  </url>
-  <url>
-    <loc>https://diffeqsolver.github.io/personal-site/research/taxicab-hyperbolic-geometry.html</loc>
-    <lastmod>2026-07-14T06:48:54.733Z</lastmod>
-  </url>
-  <url>
-    <loc>https://diffeqsolver.github.io/personal-site/projects/amr-load-balancing.html</loc>
-    <lastmod>2026-07-14T06:48:54.731Z</lastmod>
-  </url>
-  <url>
-    <loc>https://diffeqsolver.github.io/personal-site/projects.html</loc>
-    <lastmod>2026-07-14T06:48:54.731Z</lastmod>
-  </url>
-  <url>
-    <loc>https://diffeqsolver.github.io/personal-site/projects/gaussian-process-valuation.html</loc>
-    <lastmod>2026-07-14T06:48:54.731Z</lastmod>
-  </url>
-  <url>
-    <loc>https://diffeqsolver.github.io/personal-site/projects/heston-model.html</loc>
-    <lastmod>2026-07-14T06:48:54.731Z</lastmod>
+    <lastmod>2026-07-14T17:50:30.337Z</lastmod>
   </url>
   <url>
     <loc>https://diffeqsolver.github.io/personal-site/index.html</loc>
-    <lastmod>2026-07-14T06:48:54.731Z</lastmod>
+    <lastmod>2026-07-14T17:50:30.337Z</lastmod>
+  </url>
+  <url>
+    <loc>https://diffeqsolver.github.io/personal-site/projects/heston-model.html</loc>
+    <lastmod>2026-07-14T17:50:30.337Z</lastmod>
+  </url>
+  <url>
+    <loc>https://diffeqsolver.github.io/personal-site/projects/gaussian-process-valuation.html</loc>
+    <lastmod>2026-07-14T17:50:30.337Z</lastmod>
+  </url>
+  <url>
+    <loc>https://diffeqsolver.github.io/personal-site/macro/term-structure-and-recession-signals.html</loc>
+    <lastmod>2026-07-14T17:50:30.337Z</lastmod>
+  </url>
+  <url>
+    <loc>https://diffeqsolver.github.io/personal-site/projects.html</loc>
+    <lastmod>2026-07-14T17:50:30.337Z</lastmod>
+  </url>
+  <url>
+    <loc>https://diffeqsolver.github.io/personal-site/projects/amr-load-balancing.html</loc>
+    <lastmod>2026-07-14T17:50:30.337Z</lastmod>
+  </url>
+  <url>
+    <loc>https://diffeqsolver.github.io/personal-site/research/taxicab-hyperbolic-geometry.html</loc>
+    <lastmod>2026-07-14T17:50:30.338Z</lastmod>
+  </url>
+  <url>
+    <loc>https://diffeqsolver.github.io/personal-site/macro.html</loc>
+    <lastmod>2026-07-14T17:50:30.337Z</lastmod>
   </url>
 </urlset>

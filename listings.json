@@ -12,5 +12,11 @@
       "/projects/amr-load-balancing.html",
       "/projects/gaussian-process-valuation.html"
     ]
+  },
+  {
+    "listing": "/macro.html",
+    "items": [
+      "/macro/term-structure-and-recession-signals.html"
+    ]
   }
 ]
