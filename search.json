@@ -46,49 +46,84 @@
     "href": "projects.html",
     "title": "Projects",
     "section": "",
-    "text": "GP Modeling of Short-Term Mortality Fluctuations\n\n\n\nmachine learning\n\ngaussian processes\n\nactuarial science\n\n\n\nGaussian-process regression on weekly US death rates from the HMD STMF database — kernel design for seasonality and COVID-era non-stationarity, evaluated against annualized…\n\n\n\nJul 15, 2026\n\n\n\n\n\n\n\n\n\n\n\n\n\nStochastic Volatility & Option Pricing — Heston Model\n\n\n\nquant finance\n\nC++\n\nmonte carlo\n\npython\n\n\n\nA hybrid C++/Python option pricing engine comparing multi-threaded Monte Carlo simulation against a semi-analytic Fourier pricer.\n\n\n\nJun 8, 2026\n\n\n\n\n\n\n\n\n\n\n\nAMR Load Balancing: LPT vs. Hilbert Curve Scheduling\n\n\n\nscientific computing\n\nparallel computing\n\nsimulation\n\n\n\nA 2D adaptive mesh refinement simulator comparing greedy load-balancing against space-filling-curve partitioning.\n\n\n\nMay 1, 2026\n\n\n\n\n\n\n\n\n\n\n\nGaussian Process Metamodeling for Financial Valuation\n\n\n\nmachine learning\n\ngaussian processes\n\nquant finance\n\n\n\nGP regression metamodels for fair-market valuation across a 190K-contract variable-annuity portfolio.\n\n\n\nJan 1, 2026\n\n\n\n\n\n\nNo matching items"
+    "text": "GP Modeling of Short-Term Mortality Fluctuations\n\n\n\nmachine learning\n\ngaussian processes\n\nactuarial science\n\n\n\nGaussian-process regression on weekly US death rates from the HMD STMF database — kernel design for seasonality and COVID-era non-stationarity, evaluated against annualized…\n\n\n\nJul 15, 2026\n\n\n\n\n\n\n\n\n\n\n\n\n\nStochastic Volatility & Option Pricing — Heston Model\n\n\n\nquant finance\n\nC++\n\nmonte carlo\n\npython\n\n\n\nA hybrid C++/Python option pricing engine comparing multi-threaded Monte Carlo simulation against a semi-analytic Fourier pricer.\n\n\n\nJun 8, 2026\n\n\n\n\n\n\n\n\n\n\n\nAMR Load Balancing: LPT vs. Hilbert Curve Scheduling\n\n\n\nscientific computing\n\nparallel computing\n\nsimulation\n\n\n\nA 2D adaptive mesh refinement simulator comparing greedy load-balancing against space-filling-curve partitioning.\n\n\n\nMay 1, 2026\n\n\n\n\n\n\nNo matching items"
   },
   {
-    "objectID": "projects/gaussian-process-valuation.html",
-    "href": "projects/gaussian-process-valuation.html",
-    "title": "Gaussian Process Metamodeling for Financial Valuation",
+    "objectID": "projects/gp-mortality-stmf.html",
+    "href": "projects/gp-mortality-stmf.html",
+    "title": "GP Modeling of Short-Term Mortality Fluctuations",
     "section": "",
-    "text": "Note\n\n\n\nThis page is a working outline — full write-up and code walkthrough coming later. The underlying dataset and production pipeline are not public, so this project won’t have an executable demo like the Heston model; this outline covers the methodology and findings. For a fully worked, open-data GP project with the same toolkit — code, figures, and all — see GP Modeling of Short-Term Mortality Fluctuations."
+    "text": "This project is a full solution to Research Project 6: Advanced GP Modeling of Short-Term Mortality Data from Springer’s An Invitation to Undergraduate Research in Risk Management, pointing the GPyTorch toolkit at open mortality data. All code, data, and figures live in the GitHub repo.\nThe data are weekly all-cause death rates for the USA from the Short-Term Mortality Fluctuations (STMF) database, five age groups × male/female, 2015–2023 (final-vintage data only). The official file arrives in wide format — death counts and rates for each age band spread across columns — and is reshaped to long format with age treated categorically (one GP per sex × age series): STMF’s five coarse, unevenly spaced bands differ by whole units of log-rate, so forcing a shared stationary kernel across a numeric age input would impose smoothness on a dimension observed at five points.\nWeekly mortality has two features annual data can’t show: a strong winter seasonal cycle, and the COVID-19 shock —\n\n\n\nAverage intra-year mortality profile by age group, COVID years excluded. Seasonal amplitude rises steeply with age."
   },
   {
-    "objectID": "projects/gaussian-process-valuation.html#problem",
-    "href": "projects/gaussian-process-valuation.html#problem",
-    "title": "Gaussian Process Metamodeling for Financial Valuation",
-    "section": "Problem",
-    "text": "Problem\n\nPredict fair-market value across a 190,000-contract variable-annuity portfolio without running the full, expensive actuarial valuation on every contract.\nGoal: a fast, accurate metamodel that approximates the expensive valuation function well enough to replace it in scenario analysis."
+    "objectID": "projects/gp-mortality-stmf.html#overview",
+    "href": "projects/gp-mortality-stmf.html#overview",
+    "title": "GP Modeling of Short-Term Mortality Fluctuations",
+    "section": "",
+    "text": "This project is a full solution to Research Project 6: Advanced GP Modeling of Short-Term Mortality Data from Springer’s An Invitation to Undergraduate Research in Risk Management, pointing the GPyTorch toolkit at open mortality data. All code, data, and figures live in the GitHub repo.\nThe data are weekly all-cause death rates for the USA from the Short-Term Mortality Fluctuations (STMF) database, five age groups × male/female, 2015–2023 (final-vintage data only). The official file arrives in wide format — death counts and rates for each age band spread across columns — and is reshaped to long format with age treated categorically (one GP per sex × age series): STMF’s five coarse, unevenly spaced bands differ by whole units of log-rate, so forcing a shared stationary kernel across a numeric age input would impose smoothness on a dimension observed at five points.\nWeekly mortality has two features annual data can’t show: a strong winter seasonal cycle, and the COVID-19 shock —\n\n\n\nAverage intra-year mortality profile by age group, COVID years excluded. Seasonal amplitude rises steeply with age."
   },
   {
-    "objectID": "projects/gaussian-process-valuation.html#data-pipeline",
-    "href": "projects/gaussian-process-valuation.html#data-pipeline",
-    "title": "Gaussian Process Metamodeling for Financial Valuation",
-    "section": "Data pipeline",
-    "text": "Data pipeline\n\nLatin Hypercube scenario reduction to cut down the number of economic scenarios needed for training while preserving coverage of the input space.\nOne-hot encoding of categorical contract features.\nFeature scaling pipeline ahead of GP training."
+    "objectID": "projects/gp-mortality-stmf.html#research-questions",
+    "href": "projects/gp-mortality-stmf.html#research-questions",
+    "title": "GP Modeling of Short-Term Mortality Fluctuations",
+    "section": "Research questions",
+    "text": "Research questions\n\nHow large is intra-year mortality seasonality, and how does it scale with age?\nWhat does the COVID shock do to a stationary GP — and what kernel structure repairs it?\nDo the sexes differ in seasonal amplitude or trend?\nWhat does weekly modeling add over the book’s Sect. 3-style annualized GP models?"
   },
   {
-    "objectID": "projects/gaussian-process-valuation.html#modeling",
-    "href": "projects/gaussian-process-valuation.html#modeling",
-    "title": "Gaussian Process Metamodeling for Financial Valuation",
-    "section": "Modeling",
-    "text": "Modeling\n\nGaussian Process regression via GPyTorch.\nBenchmarked 6 GP configurations:\n\nKernels: RBF, Matérn-5/2, Exponential\nMean priors: constant, linear\n\nBaselines: k-nearest neighbors, linear regression."
+    "objectID": "projects/gp-mortality-stmf.html#models",
+    "href": "projects/gp-mortality-stmf.html#models",
+    "title": "GP Modeling of Short-Term Mortality Fluctuations",
+    "section": "Models",
+    "text": "Models\nExact GPs (GPyTorch) on \\(y = \\log\\) (annualized weekly death rate), input \\(x = t\\) in decimal years, linear prior mean. The model zoo, per series:\n\n\n\n\n\n\n\nModel\nKernel\n\n\n\n\nannual\nMatérn-5/2 on annual aggregates (the Sect. 3 baseline)\n\n\ntrend\nMatérn-5/2\n\n\nseasonal\nMatérn-5/2 + Periodic (period fixed at 1 yr)\n\n\nquasi\nMatérn-5/2 (lengthscale ≥ 1 yr) + Periodic × Matérn + Matérn-1/2 (lengthscale ≤ 0.25 yr)\n\n\n\nThe quasi model’s constraints are the interesting part. Fit to 2015–2023 data, an unconstrained trend kernel shrinks its lengthscale to ≈ 0.1 yr — the “smooth trend” degenerates into a wiggly interpolator chasing COVID waves. Constraining the trend to stay slow and adding an explicit short-lengthscale shock channel restores an interpretable decomposition:\n\n\n\nQuasi-periodic GP fit for ages 85+ (female): data + posterior (top), seasonal component (middle), shock component (bottom). The shock channel isolates the 2018 flu winter, April 2020, the 2020–21 winter wave, and Omicron."
   },
   {
-    "objectID": "projects/gaussian-process-valuation.html#evaluation",
-    "href": "projects/gaussian-process-valuation.html#evaluation",
-    "title": "Gaussian Process Metamodeling for Financial Valuation",
-    "section": "Evaluation",
-    "text": "Evaluation\n\nMetrics: R², RMSE, BIC.\nGP models outperformed both baselines on accuracy across the board.\nARD (Automatic Relevance Determination) lengthscales analyzed post-hoc to rank predictor significance — i.e., which contract/scenario features the model relies on most."
+    "objectID": "projects/gp-mortality-stmf.html#results",
+    "href": "projects/gp-mortality-stmf.html#results",
+    "title": "GP Modeling of Short-Term Mortality Fluctuations",
+    "section": "Results",
+    "text": "Results\nCOVID breaks a stationary GP exactly as it should. Trained through 2019 and extrapolated into 2020, the seasonal GP’s 95% intervals cover only 19–26% of 2020 weeks for ages 65–84 (nominal 95%), with average rate errors above 20%:\n\n\n\nSeasonal GP trained through 2019, extrapolated into 2020. Reality leaves the 95% band within weeks of March 2020.\n\n\nSeasonality scales with age; the sexes barely differ in it. Fitted seasonal amplitude grows monotonically from ≈10% (ages 15–64) to ≈16% (85+) peak swing, nearly identical across sexes — while levels differ by a large male excess everywhere, and both sexes share improving post-COVID trends at 65+ of roughly 1.5–2.5%/yr:\n\n\n\nFitted seasonal amplitude by age group and sex, from the quasi-periodic GP.\n\n\nWeekly and annual GPs agree on the long run — and only there. The annualized baseline fits trend lengthscales of ≈4–6 yr, matching the weekly quasi-GP’s — but everything sub-annual (flu winters, COVID wave timing, seasonality itself) is invisible to it, absorbed into its noise term:\n\n\n\nThe Sect. 3-style annual GP over the weekly data it never sees.\n\n\nLikelihood alone rewards the wrong model. BIC prefers the unconstrained seasonal model (its trend kernel is free to chase COVID, buying in-sample likelihood), but on a 2023 hold-out the constrained quasi model wins decisively: mean RMSE 0.083 vs 0.141 log units, 95%-interval coverage 0.89 vs 0.76, NLPD −0.75 vs −0.06. The interpretability constraints turn out to be the better forecasting prior — a clean miniature of the project brief’s “refine and iterate” cycle.\nResidual diagnostics (against week-of-year, calendar year, and age group) are flat for adult series at ≈±0.003 log units; the 0–14 series is dominated by small-count observation noise (fitted noise SD ≈0.05 vs ≈0.006 for adults), and the GP correctly declines to find seasonal signal in it."
   },
   {
-    "objectID": "projects/gaussian-process-valuation.html#stack",
-    "href": "projects/gaussian-process-valuation.html#stack",
-    "title": "Gaussian Process Metamodeling for Financial Valuation",
+    "objectID": "projects/gp-mortality-stmf.html#stack",
+    "href": "projects/gp-mortality-stmf.html#stack",
+    "title": "GP Modeling of Short-Term Mortality Fluctuations",
     "section": "Stack",
-    "text": "Stack\nPython · GPyTorch · scikit-learn · Pandas"
+    "text": "Stack\nPython · GPyTorch · PyTorch · Pandas · Matplotlib"
+  },
+  {
+    "objectID": "projects/heston-model.html",
+    "href": "projects/heston-model.html",
+    "title": "Stochastic Volatility & Option Pricing — Heston Model",
+    "section": "",
+    "text": "This project implements a hybrid C++/Python option pricing framework under the Heston stochastic volatility model, comparing a multi-threaded Monte Carlo path simulator against a closed-form semi-analytic Fourier transform pricer. The full build-up — from first-principles probability, to Brownian motion, to SDEs, to the Heston model itself — along with all source code, lives in the GitHub repo.\nThe asset price and its instantaneous variance evolve as a pair of correlated SDEs:\n\\[dS_t = \\mu S_t\\, dt + \\sqrt{v_t}\\, S_t\\, dW_t^{(1)}\\] \\[dv_t = \\kappa(\\theta - v_t)\\, dt + \\xi \\sqrt{v_t}\\, dW_t^{(2)}\\]\nwith \\(dW_t^{(1)} dW_t^{(2)} = \\rho\\, dt\\)."
+  },
+  {
+    "objectID": "projects/heston-model.html#overview",
+    "href": "projects/heston-model.html#overview",
+    "title": "Stochastic Volatility & Option Pricing — Heston Model",
+    "section": "",
+    "text": "This project implements a hybrid C++/Python option pricing framework under the Heston stochastic volatility model, comparing a multi-threaded Monte Carlo path simulator against a closed-form semi-analytic Fourier transform pricer. The full build-up — from first-principles probability, to Brownian motion, to SDEs, to the Heston model itself — along with all source code, lives in the GitHub repo.\nThe asset price and its instantaneous variance evolve as a pair of correlated SDEs:\n\\[dS_t = \\mu S_t\\, dt + \\sqrt{v_t}\\, S_t\\, dW_t^{(1)}\\] \\[dv_t = \\kappa(\\theta - v_t)\\, dt + \\xi \\sqrt{v_t}\\, dW_t^{(2)}\\]\nwith \\(dW_t^{(1)} dW_t^{(2)} = \\rho\\, dt\\)."
+  },
+  {
+    "objectID": "projects/heston-model.html#what-i-built",
+    "href": "projects/heston-model.html#what-i-built",
+    "title": "Stochastic Volatility & Option Pricing — Heston Model",
+    "section": "What I built",
+    "text": "What I built\n\nA semi-analytic Fourier pricer using the Gatheral/Albrecher stable formulation of the Heston characteristic function, integrated via scipy.integrate.quad.\nA multi-threaded Monte Carlo engine written in C++ (Log-Euler scheme for the price process, full-truncation for variance) and exposed to Python via pybind11.\nSimulated up to 100K paths to evaluate Monte Carlo convergence against the semi-analytic baseline with 95% confidence intervals.\nA custom Matplotlib plotting suite for dual-axis overlays and side-by-side benchmark visualizations."
+  },
+  {
+    "objectID": "projects/heston-model.html#results",
+    "href": "projects/heston-model.html#results",
+    "title": "Stochastic Volatility & Option Pricing — Heston Model",
+    "section": "Results",
+    "text": "Results\nA simulated Heston path, showing the asset price responding to its own stochastic, mean-reverting variance process:\n\n\n\nSimulated asset price with its overlaid instantaneous variance path.\n\n\nMonte Carlo price estimates converge tightly to the semi-analytic solution as path count grows, and the C++ engine delivers a consistent speedup over the pure-Python Monte Carlo implementation:\n\n\n\nMonte Carlo convergence to the semi-analytic price (left) and C++ vs. Python runtime across path counts (right).\n\n\nThe multi-threaded C++ implementation achieves roughly a 3–5x speedup over pure Python at large path counts, while both converge to the same semi-analytic option price of 10.39."
+  },
+  {
+    "objectID": "projects/heston-model.html#stack",
+    "href": "projects/heston-model.html#stack",
+    "title": "Stochastic Volatility & Option Pricing — Heston Model",
+    "section": "Stack",
+    "text": "Stack\nPython · C++ (pybind11, C++11 threads) · NumPy · SciPy · Matplotlib"
   },
   {
     "objectID": "projects/amr-load-balancing.html",
@@ -145,83 +180,6 @@
     "title": "AMR Load Balancing: LPT vs. Hilbert Curve Scheduling",
     "section": "Takeaways",
     "text": "Takeaways\n\nLPT wins on raw load balance (imbalance often under 1%) but pays for it in communication cost — its partitions are spatially fragmented.\nHilbert SFC accepts a slightly higher load imbalance in exchange for dramatically lower communication cost, since it preserves spatial locality.\nWhich one wins on makespan depends on \\(\\beta\\) — the relative cost of communication vs. computation. On a high-latency interconnect, Hilbert’s locality advantage outweighs its imbalance; on a fast one, LPT’s tighter balance can win outright.\nThe open problem: a scheduler that gets LPT’s load-splitting power and Hilbert’s spatial awareness, cheaply enough to run every refinement step. That combination is still an active area in HPC scheduling research."
-  },
-  {
-    "objectID": "projects/heston-model.html",
-    "href": "projects/heston-model.html",
-    "title": "Stochastic Volatility & Option Pricing — Heston Model",
-    "section": "",
-    "text": "This project implements a hybrid C++/Python option pricing framework under the Heston stochastic volatility model, comparing a multi-threaded Monte Carlo path simulator against a closed-form semi-analytic Fourier transform pricer. The full build-up — from first-principles probability, to Brownian motion, to SDEs, to the Heston model itself — along with all source code, lives in the GitHub repo.\nThe asset price and its instantaneous variance evolve as a pair of correlated SDEs:\n\\[dS_t = \\mu S_t\\, dt + \\sqrt{v_t}\\, S_t\\, dW_t^{(1)}\\] \\[dv_t = \\kappa(\\theta - v_t)\\, dt + \\xi \\sqrt{v_t}\\, dW_t^{(2)}\\]\nwith \\(dW_t^{(1)} dW_t^{(2)} = \\rho\\, dt\\)."
-  },
-  {
-    "objectID": "projects/heston-model.html#overview",
-    "href": "projects/heston-model.html#overview",
-    "title": "Stochastic Volatility & Option Pricing — Heston Model",
-    "section": "",
-    "text": "This project implements a hybrid C++/Python option pricing framework under the Heston stochastic volatility model, comparing a multi-threaded Monte Carlo path simulator against a closed-form semi-analytic Fourier transform pricer. The full build-up — from first-principles probability, to Brownian motion, to SDEs, to the Heston model itself — along with all source code, lives in the GitHub repo.\nThe asset price and its instantaneous variance evolve as a pair of correlated SDEs:\n\\[dS_t = \\mu S_t\\, dt + \\sqrt{v_t}\\, S_t\\, dW_t^{(1)}\\] \\[dv_t = \\kappa(\\theta - v_t)\\, dt + \\xi \\sqrt{v_t}\\, dW_t^{(2)}\\]\nwith \\(dW_t^{(1)} dW_t^{(2)} = \\rho\\, dt\\)."
-  },
-  {
-    "objectID": "projects/heston-model.html#what-i-built",
-    "href": "projects/heston-model.html#what-i-built",
-    "title": "Stochastic Volatility & Option Pricing — Heston Model",
-    "section": "What I built",
-    "text": "What I built\n\nA semi-analytic Fourier pricer using the Gatheral/Albrecher stable formulation of the Heston characteristic function, integrated via scipy.integrate.quad.\nA multi-threaded Monte Carlo engine written in C++ (Log-Euler scheme for the price process, full-truncation for variance) and exposed to Python via pybind11.\nSimulated up to 100K paths to evaluate Monte Carlo convergence against the semi-analytic baseline with 95% confidence intervals.\nA custom Matplotlib plotting suite for dual-axis overlays and side-by-side benchmark visualizations."
-  },
-  {
-    "objectID": "projects/heston-model.html#results",
-    "href": "projects/heston-model.html#results",
-    "title": "Stochastic Volatility & Option Pricing — Heston Model",
-    "section": "Results",
-    "text": "Results\nA simulated Heston path, showing the asset price responding to its own stochastic, mean-reverting variance process:\n\n\n\nSimulated asset price with its overlaid instantaneous variance path.\n\n\nMonte Carlo price estimates converge tightly to the semi-analytic solution as path count grows, and the C++ engine delivers a consistent speedup over the pure-Python Monte Carlo implementation:\n\n\n\nMonte Carlo convergence to the semi-analytic price (left) and C++ vs. Python runtime across path counts (right).\n\n\nThe multi-threaded C++ implementation achieves roughly a 3–5x speedup over pure Python at large path counts, while both converge to the same semi-analytic option price of 10.39."
-  },
-  {
-    "objectID": "projects/heston-model.html#stack",
-    "href": "projects/heston-model.html#stack",
-    "title": "Stochastic Volatility & Option Pricing — Heston Model",
-    "section": "Stack",
-    "text": "Stack\nPython · C++ (pybind11, C++11 threads) · NumPy · SciPy · Matplotlib"
-  },
-  {
-    "objectID": "projects/gp-mortality-stmf.html",
-    "href": "projects/gp-mortality-stmf.html",
-    "title": "GP Modeling of Short-Term Mortality Fluctuations",
-    "section": "",
-    "text": "This project is a full solution to Research Project 6: Advanced GP Modeling of Short-Term Mortality Data from Springer’s An Invitation to Undergraduate Research in Risk Management — a companion piece to the GP metamodeling project, pointing the same GPyTorch toolkit at open mortality data. All code, data, and figures live in the GitHub repo.\nThe data are weekly all-cause death rates for the USA from the Short-Term Mortality Fluctuations (STMF) database, five age groups × male/female, 2015–2023 (final-vintage data only). The official file arrives in wide format — death counts and rates for each age band spread across columns — and is reshaped to long format with age treated categorically (one GP per sex × age series): STMF’s five coarse, unevenly spaced bands differ by whole units of log-rate, so forcing a shared stationary kernel across a numeric age input would impose smoothness on a dimension observed at five points.\nWeekly mortality has two features annual data can’t show: a strong winter seasonal cycle, and the COVID-19 shock —\n\n\n\nAverage intra-year mortality profile by age group, COVID years excluded. Seasonal amplitude rises steeply with age."
-  },
-  {
-    "objectID": "projects/gp-mortality-stmf.html#overview",
-    "href": "projects/gp-mortality-stmf.html#overview",
-    "title": "GP Modeling of Short-Term Mortality Fluctuations",
-    "section": "",
-    "text": "This project is a full solution to Research Project 6: Advanced GP Modeling of Short-Term Mortality Data from Springer’s An Invitation to Undergraduate Research in Risk Management — a companion piece to the GP metamodeling project, pointing the same GPyTorch toolkit at open mortality data. All code, data, and figures live in the GitHub repo.\nThe data are weekly all-cause death rates for the USA from the Short-Term Mortality Fluctuations (STMF) database, five age groups × male/female, 2015–2023 (final-vintage data only). The official file arrives in wide format — death counts and rates for each age band spread across columns — and is reshaped to long format with age treated categorically (one GP per sex × age series): STMF’s five coarse, unevenly spaced bands differ by whole units of log-rate, so forcing a shared stationary kernel across a numeric age input would impose smoothness on a dimension observed at five points.\nWeekly mortality has two features annual data can’t show: a strong winter seasonal cycle, and the COVID-19 shock —\n\n\n\nAverage intra-year mortality profile by age group, COVID years excluded. Seasonal amplitude rises steeply with age."
-  },
-  {
-    "objectID": "projects/gp-mortality-stmf.html#research-questions",
-    "href": "projects/gp-mortality-stmf.html#research-questions",
-    "title": "GP Modeling of Short-Term Mortality Fluctuations",
-    "section": "Research questions",
-    "text": "Research questions\n\nHow large is intra-year mortality seasonality, and how does it scale with age?\nWhat does the COVID shock do to a stationary GP — and what kernel structure repairs it?\nDo the sexes differ in seasonal amplitude or trend?\nWhat does weekly modeling add over the book’s Sect. 3-style annualized GP models?"
-  },
-  {
-    "objectID": "projects/gp-mortality-stmf.html#models",
-    "href": "projects/gp-mortality-stmf.html#models",
-    "title": "GP Modeling of Short-Term Mortality Fluctuations",
-    "section": "Models",
-    "text": "Models\nExact GPs (GPyTorch) on \\(y = \\log\\) (annualized weekly death rate), input \\(x = t\\) in decimal years, linear prior mean. The model zoo, per series:\n\n\n\n\n\n\n\nModel\nKernel\n\n\n\n\nannual\nMatérn-5/2 on annual aggregates (the Sect. 3 baseline)\n\n\ntrend\nMatérn-5/2\n\n\nseasonal\nMatérn-5/2 + Periodic (period fixed at 1 yr)\n\n\nquasi\nMatérn-5/2 (lengthscale ≥ 1 yr) + Periodic × Matérn + Matérn-1/2 (lengthscale ≤ 0.25 yr)\n\n\n\nThe quasi model’s constraints are the interesting part. Fit to 2015–2023 data, an unconstrained trend kernel shrinks its lengthscale to ≈ 0.1 yr — the “smooth trend” degenerates into a wiggly interpolator chasing COVID waves. Constraining the trend to stay slow and adding an explicit short-lengthscale shock channel restores an interpretable decomposition:\n\n\n\nQuasi-periodic GP fit for ages 85+ (female): data + posterior (top), seasonal component (middle), shock component (bottom). The shock channel isolates the 2018 flu winter, April 2020, the 2020–21 winter wave, and Omicron."
-  },
-  {
-    "objectID": "projects/gp-mortality-stmf.html#results",
-    "href": "projects/gp-mortality-stmf.html#results",
-    "title": "GP Modeling of Short-Term Mortality Fluctuations",
-    "section": "Results",
-    "text": "Results\nCOVID breaks a stationary GP exactly as it should. Trained through 2019 and extrapolated into 2020, the seasonal GP’s 95% intervals cover only 19–26% of 2020 weeks for ages 65–84 (nominal 95%), with average rate errors above 20%:\n\n\n\nSeasonal GP trained through 2019, extrapolated into 2020. Reality leaves the 95% band within weeks of March 2020.\n\n\nSeasonality scales with age; the sexes barely differ in it. Fitted seasonal amplitude grows monotonically from ≈10% (ages 15–64) to ≈16% (85+) peak swing, nearly identical across sexes — while levels differ by a large male excess everywhere, and both sexes share improving post-COVID trends at 65+ of roughly 1.5–2.5%/yr:\n\n\n\nFitted seasonal amplitude by age group and sex, from the quasi-periodic GP.\n\n\nWeekly and annual GPs agree on the long run — and only there. The annualized baseline fits trend lengthscales of ≈4–6 yr, matching the weekly quasi-GP’s — but everything sub-annual (flu winters, COVID wave timing, seasonality itself) is invisible to it, absorbed into its noise term:\n\n\n\nThe Sect. 3-style annual GP over the weekly data it never sees.\n\n\nLikelihood alone rewards the wrong model. BIC prefers the unconstrained seasonal model (its trend kernel is free to chase COVID, buying in-sample likelihood), but on a 2023 hold-out the constrained quasi model wins decisively: mean RMSE 0.083 vs 0.141 log units, 95%-interval coverage 0.89 vs 0.76, NLPD −0.75 vs −0.06. The interpretability constraints turn out to be the better forecasting prior — a clean miniature of the project brief’s “refine and iterate” cycle.\nResidual diagnostics (against week-of-year, calendar year, and age group) are flat for adult series at ≈±0.003 log units; the 0–14 series is dominated by small-count observation noise (fitted noise SD ≈0.05 vs ≈0.006 for adults), and the GP correctly declines to find seasonal signal in it."
-  },
-  {
-    "objectID": "projects/gp-mortality-stmf.html#stack",
-    "href": "projects/gp-mortality-stmf.html#stack",
-    "title": "GP Modeling of Short-Term Mortality Fluctuations",
-    "section": "Stack",
-    "text": "Stack\nPython · GPyTorch · PyTorch · Pandas · Matplotlib"
   },
   {
     "objectID": "macro.html",
