@@ -1,12 +1,5 @@
 [
   {
-    "objectID": "research.html",
-    "href": "research.html",
-    "title": "Research",
-    "section": "",
-    "text": "Geodesics & Hyperbolicity of Taxicab Half-Plane Space\n\n\n\nresearch\n\ngeometry\n\nmathematics\n\n\n\nUndergraduate research blending the hyperbolic half-plane model with taxicab geometry — poster session at the 2025 Seattle University STEM Research Summit.\n\n\n\n\n\nOct 1, 2025\n\n\n\n\n\nNo matching items"
-  },
-  {
     "objectID": "index.html",
     "href": "index.html",
     "title": "Luke Lawrence",
@@ -21,46 +14,46 @@
     "text": "Hi, I’m Luke — a Math major (Computer Science minor) at Seattle University, expected June 2027, working at the intersection of stochastic calculus, machine learning, and numerical computing.\nMy recent work spans stochastic volatility modeling and option pricing, Gaussian process metamodeling for financial valuation, and undergraduate research in non-Euclidean geometry (recipient of the Jane E. Mills Award for Undergraduate Research in Mathematics). I’ve also shipped full-stack, LLM-backed product features as a software engineering intern.\n\nProjects — quant finance, ML, and scientific computing builds\nResearch — write-ups and explorations\n\nReach me at lukalawrence24@gmail.com, on GitHub, or on LinkedIn."
   },
   {
-    "objectID": "projects/heston-model.html",
-    "href": "projects/heston-model.html",
-    "title": "Stochastic Volatility & Option Pricing — Heston Model",
+    "objectID": "research/taxicab-hyperbolic-geometry.html",
+    "href": "research/taxicab-hyperbolic-geometry.html",
+    "title": "Geodesics & Hyperbolicity of Taxicab Half-Plane Space",
     "section": "",
-    "text": "This project implements a hybrid C++/Python option pricing framework under the Heston stochastic volatility model, comparing a multi-threaded Monte Carlo path simulator against a closed-form semi-analytic Fourier transform pricer. The full build-up — from first-principles probability, to Brownian motion, to SDEs, to the Heston model itself — along with all source code, lives in the GitHub repo.\nThe asset price and its instantaneous variance evolve as a pair of correlated SDEs:\n\\[dS_t = \\mu S_t\\, dt + \\sqrt{v_t}\\, S_t\\, dW_t^{(1)}\\] \\[dv_t = \\kappa(\\theta - v_t)\\, dt + \\xi \\sqrt{v_t}\\, dW_t^{(2)}\\]\nwith \\(dW_t^{(1)} dW_t^{(2)} = \\rho\\, dt\\)."
+    "text": "Research done with a faculty-advised student team under Dr. Dylan Helliwell, Department of Mathematics, Seattle University. Funded by the College of Science and Engineering Summer Research program. Presented at the 2025 Seattle University STEM Research Summit and the 2026 PNW MAA conference."
   },
   {
-    "objectID": "projects/heston-model.html#overview",
-    "href": "projects/heston-model.html#overview",
-    "title": "Stochastic Volatility & Option Pricing — Heston Model",
+    "objectID": "research/taxicab-hyperbolic-geometry.html#poster",
+    "href": "research/taxicab-hyperbolic-geometry.html#poster",
+    "title": "Geodesics & Hyperbolicity of Taxicab Half-Plane Space",
+    "section": "Poster",
+    "text": "Poster\n\n\nDownload the poster (PDF)"
+  },
+  {
+    "objectID": "research/taxicab-hyperbolic-geometry.html#what-the-research-is-about",
+    "href": "research/taxicab-hyperbolic-geometry.html#what-the-research-is-about",
+    "title": "Geodesics & Hyperbolicity of Taxicab Half-Plane Space",
+    "section": "What the research is about",
+    "text": "What the research is about\nWe built a new geometric space by blending the half-plane model of the hyperbolic plane with taxicab (\\(L^1\\)) geometry, then asked whether the result is still “hyperbolic” in the rigorous sense Gromov defined for general metric spaces — a property that underlies a lot of modern geometric group theory.\nFor \\(m \\in [0,1]\\), the space is \\(\\left(\\mathbb{H}_m^2, \\lVert\\cdot\\rVert_m\\right)\\), where\n\\[\\mathbb{H}_m^2 = \\{x = (x_1, x_2) \\in \\mathbb{R}^2 : x_2 &gt; m x_1\\}, \\qquad \\lVert v \\rVert_{m,x} = \\frac{|v_1| + |v_2|}{x_2 - m x_1}.\\]\nInstead of the usual Euclidean norm on each tangent space (as in the standard hyperbolic half-plane), we put a taxicab norm there, scaled by distance to a boundary line at infinity that tilts as \\(m\\) varies from \\(0\\) (horizontal boundary) toward \\(1\\).\nGeodesics. By minimizing arc length \\(L(\\gamma) = \\int_0^1 \\lVert \\gamma'(t)\\rVert_m\\, dt\\) over curves connecting two points, we showed the shortest paths are concatenations of a coordinate-horizontal and a coordinate-vertical segment — an axis-aligned “corner” path, very much in the spirit of taxicab geometry, but now living on a curved boundary. This directly produces a closed-form distance function on \\(\\mathbb{H}_m^2\\).\nHyperbolicity. With a distance function in hand, we tested Gromov’s \\(\\delta\\)-hyperbolicity condition: for all points \\(x,y,z,w\\),\n\\[G(x,y;w) \\ge \\min\\{G(x,z;w),\\, G(y,z;w)\\} - \\delta, \\qquad G(x,y;z) = \\tfrac12\\big(d(x,z)+d(y,z)\\big) - d(x,y).\\]\nThrough case analysis on the geometry of how points sit relative to the boundary at infinity, we derived an explicit bound\n\\[f(x,y,z,w) \\le \\tfrac12 \\ln\\!\\left(\\frac{\\Omega(x,y)\\,\\Omega(z,w)}{\\max\\{\\Omega(x,z)\\Omega(y,w),\\ \\Omega(x,w)\\Omega(y,z)\\}}\\right) + \\tfrac{3}{2m}\\ln\\!\\left(\\frac{1+m}{1-m}\\right),\\]\nshowing \\(\\mathbb{H}_m^2\\) is \\(\\delta\\)-hyperbolic for a \\(\\delta\\) depending only on \\(m\\).\nOpen questions. The \\(m=1\\) (fully slanted) case, extensions to higher dimensions with horizontal or slanted hyperplanes at infinity, and behavior under quotient spaces are all open — see the poster’s Future Work panel."
+  },
+  {
+    "objectID": "research/taxicab-hyperbolic-geometry.html#play-with-taxicab-distance",
+    "href": "research/taxicab-hyperbolic-geometry.html#play-with-taxicab-distance",
+    "title": "Geodesics & Hyperbolicity of Taxicab Half-Plane Space",
+    "section": "Play with taxicab distance",
+    "text": "Play with taxicab distance\nThe core idea underneath all of this — swap the usual straight-line (“Euclidean”) notion of distance for the taxicab one — is easiest to build intuition for with a plain grid. Drag the sliders to move point B and compare the two notions of “shortest path” from A to B.\n\n\nCode\nviewof bx = Inputs.range([-6, 6], {value: 4, step: 1, label: \"Point B — x\"})\n\n\n\n\n\n\n\n\n\nCode\nviewof by = Inputs.range([-6, 6], {value: 3, step: 1, label: \"Point B — y\"})\n\n\n\n\n\n\n\n\n\nCode\nviewof showCircles = Inputs.toggle({label: \"Show equal-distance \\\"circles\\\" around A\", value: false})\n\n\n\n\n\n\n\n\n\nCode\ntaxicabPlot = {\n  const width = 480, height = 480, pad = 30;\n  const domain = 7;\n  const scale = (width - 2 * pad) / (2 * domain);\n  const toSvgX = x =&gt; pad + (x + domain) * scale;\n  const toSvgY = y =&gt; height - pad - (y + domain) * scale;\n\n  const svg = d3.create(\"svg\")\n      .attr(\"viewBox\", [0, 0, width, height])\n      .attr(\"width\", width)\n      .attr(\"height\", height)\n      .style(\"font-family\", \"sans-serif\")\n      .style(\"font-size\", \"11px\");\n\n  for (let i = -domain; i &lt;= domain; i++) {\n    svg.append(\"line\")\n       .attr(\"x1\", toSvgX(i)).attr(\"x2\", toSvgX(i))\n       .attr(\"y1\", toSvgY(-domain)).attr(\"y2\", toSvgY(domain))\n       .attr(\"stroke\", \"#ddd\").attr(\"stroke-width\", i === 0 ? 1.5 : 0.5);\n    svg.append(\"line\")\n       .attr(\"y1\", toSvgY(i)).attr(\"y2\", toSvgY(i))\n       .attr(\"x1\", toSvgX(-domain)).attr(\"x2\", toSvgX(domain))\n       .attr(\"stroke\", \"#ddd\").attr(\"stroke-width\", i === 0 ? 1.5 : 0.5);\n  }\n\n  const dTaxi = Math.abs(bx) + Math.abs(by);\n\n  if (showCircles && dTaxi &gt; 0) {\n    svg.append(\"circle\")\n       .attr(\"cx\", toSvgX(0)).attr(\"cy\", toSvgY(0))\n       .attr(\"r\", dTaxi * scale)\n       .attr(\"fill\", \"none\").attr(\"stroke\", \"#a22c29\")\n       .attr(\"stroke-dasharray\", \"4,3\").attr(\"stroke-width\", 1.5);\n\n    const pts = [[dTaxi, 0], [0, dTaxi], [-dTaxi, 0], [0, -dTaxi]]\n      .map(([x, y]) =&gt; `${toSvgX(x)},${toSvgY(y)}`).join(\" \");\n    svg.append(\"polygon\").attr(\"points\", pts)\n       .attr(\"fill\", \"#b9baa3\").attr(\"fill-opacity\", 0.25)\n       .attr(\"stroke\", \"#556b2f\").attr(\"stroke-width\", 1.5);\n  }\n\n  svg.append(\"line\")\n     .attr(\"x1\", toSvgX(0)).attr(\"y1\", toSvgY(0))\n     .attr(\"x2\", toSvgX(bx)).attr(\"y2\", toSvgY(by))\n     .attr(\"stroke\", \"#a22c29\").attr(\"stroke-width\", 2).attr(\"stroke-dasharray\", \"6,4\");\n\n  svg.append(\"polyline\")\n     .attr(\"points\", `${toSvgX(0)},${toSvgY(0)} ${toSvgX(bx)},${toSvgY(0)} ${toSvgX(bx)},${toSvgY(by)}`)\n     .attr(\"fill\", \"none\").attr(\"stroke\", \"#2c6ea2\").attr(\"stroke-width\", 2.5);\n\n  svg.append(\"circle\").attr(\"cx\", toSvgX(0)).attr(\"cy\", toSvgY(0)).attr(\"r\", 5).attr(\"fill\", \"#111\");\n  svg.append(\"text\").attr(\"x\", toSvgX(0) + 8).attr(\"y\", toSvgY(0) - 8).text(\"A\");\n\n  svg.append(\"circle\").attr(\"cx\", toSvgX(bx)).attr(\"cy\", toSvgY(by)).attr(\"r\", 5).attr(\"fill\", \"#2c6ea2\");\n  svg.append(\"text\").attr(\"x\", toSvgX(bx) + 8).attr(\"y\", toSvgY(by) - 8).text(\"B\");\n\n  return svg.node();\n}\n\n\n\n\n\n\n\n\n\nCode\nmd`**Euclidean distance (dashed red line):** ${Math.hypot(bx, by).toFixed(2)}\n**Taxicab distance (blue \"city block\" path):** ${Math.abs(bx) + Math.abs(by)}\n\n${showCircles ? \"The dashed red circle is every point at the Euclidean distance you see above from A. The green **diamond** is every point at that *same number* of taxicab blocks from A — under the taxicab metric, that diamond is a perfect \\\"circle.\\\"\" : \"\"}`\n\n\n\n\n\n\n\nEvery red-dashed line above is the only shortest Euclidean path between A and B. The blue path is just one shortest taxicab path — any staircase of unit right/up steps from A to B has exactly the same taxicab length, since you can’t do better than the total horizontal and vertical distance combined. That’s the same idea driving the poster above: once you replace the notion of “straight line” with a taxicab norm, distances, shortest paths, and even circles change shape — and the research asks how far that idea can be pushed while keeping the space provably hyperbolic."
+  },
+  {
+    "objectID": "projects.html",
+    "href": "projects.html",
+    "title": "Projects",
     "section": "",
-    "text": "This project implements a hybrid C++/Python option pricing framework under the Heston stochastic volatility model, comparing a multi-threaded Monte Carlo path simulator against a closed-form semi-analytic Fourier transform pricer. The full build-up — from first-principles probability, to Brownian motion, to SDEs, to the Heston model itself — along with all source code, lives in the GitHub repo.\nThe asset price and its instantaneous variance evolve as a pair of correlated SDEs:\n\\[dS_t = \\mu S_t\\, dt + \\sqrt{v_t}\\, S_t\\, dW_t^{(1)}\\] \\[dv_t = \\kappa(\\theta - v_t)\\, dt + \\xi \\sqrt{v_t}\\, dW_t^{(2)}\\]\nwith \\(dW_t^{(1)} dW_t^{(2)} = \\rho\\, dt\\)."
-  },
-  {
-    "objectID": "projects/heston-model.html#what-i-built",
-    "href": "projects/heston-model.html#what-i-built",
-    "title": "Stochastic Volatility & Option Pricing — Heston Model",
-    "section": "What I built",
-    "text": "What I built\n\nA semi-analytic Fourier pricer using the Gatheral/Albrecher stable formulation of the Heston characteristic function, integrated via scipy.integrate.quad.\nA multi-threaded Monte Carlo engine written in C++ (Log-Euler scheme for the price process, full-truncation for variance) and exposed to Python via pybind11.\nSimulated up to 100K paths to evaluate Monte Carlo convergence against the semi-analytic baseline with 95% confidence intervals.\nA custom Matplotlib plotting suite for dual-axis overlays and side-by-side benchmark visualizations."
-  },
-  {
-    "objectID": "projects/heston-model.html#results",
-    "href": "projects/heston-model.html#results",
-    "title": "Stochastic Volatility & Option Pricing — Heston Model",
-    "section": "Results",
-    "text": "Results\nA simulated Heston path, showing the asset price responding to its own stochastic, mean-reverting variance process:\n\n\n\nSimulated asset price with its overlaid instantaneous variance path.\n\n\nMonte Carlo price estimates converge tightly to the semi-analytic solution as path count grows, and the C++ engine delivers a consistent speedup over the pure-Python Monte Carlo implementation:\n\n\n\nMonte Carlo convergence to the semi-analytic price (left) and C++ vs. Python runtime across path counts (right).\n\n\nThe multi-threaded C++ implementation achieves roughly a 3–5x speedup over pure Python at large path counts, while both converge to the same semi-analytic option price of 10.39."
-  },
-  {
-    "objectID": "projects/heston-model.html#stack",
-    "href": "projects/heston-model.html#stack",
-    "title": "Stochastic Volatility & Option Pricing — Heston Model",
-    "section": "Stack",
-    "text": "Stack\nPython · C++ (pybind11, C++11 threads) · NumPy · SciPy · Matplotlib"
+    "text": "GP Modeling of Short-Term Mortality Fluctuations\n\n\n\nmachine learning\n\ngaussian processes\n\nactuarial science\n\n\n\nGaussian-process regression on weekly US death rates from the HMD STMF database — kernel design for seasonality and COVID-era non-stationarity, evaluated against annualized…\n\n\n\nJul 15, 2026\n\n\n\n\n\n\n\n\n\n\n\n\n\nStochastic Volatility & Option Pricing — Heston Model\n\n\n\nquant finance\n\nC++\n\nmonte carlo\n\npython\n\n\n\nA hybrid C++/Python option pricing engine comparing multi-threaded Monte Carlo simulation against a semi-analytic Fourier pricer.\n\n\n\nJun 8, 2026\n\n\n\n\n\n\n\n\n\n\n\nAMR Load Balancing: LPT vs. Hilbert Curve Scheduling\n\n\n\nscientific computing\n\nparallel computing\n\nsimulation\n\n\n\nA 2D adaptive mesh refinement simulator comparing greedy load-balancing against space-filling-curve partitioning.\n\n\n\nMay 1, 2026\n\n\n\n\n\n\n\n\n\n\n\nGaussian Process Metamodeling for Financial Valuation\n\n\n\nmachine learning\n\ngaussian processes\n\nquant finance\n\n\n\nGP regression metamodels for fair-market valuation across a 190K-contract variable-annuity portfolio.\n\n\n\nJan 1, 2026\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "projects/gaussian-process-valuation.html",
     "href": "projects/gaussian-process-valuation.html",
     "title": "Gaussian Process Metamodeling for Financial Valuation",
     "section": "",
-    "text": "Note\n\n\n\nThis page is a working outline — full write-up and code walkthrough coming later. The underlying dataset and production pipeline are not public, so this project won’t have an executable demo like the Heston model; this outline covers the methodology and findings."
+    "text": "Note\n\n\n\nThis page is a working outline — full write-up and code walkthrough coming later. The underlying dataset and production pipeline are not public, so this project won’t have an executable demo like the Heston model; this outline covers the methodology and findings. For a fully worked, open-data GP project with the same toolkit — code, figures, and all — see GP Modeling of Short-Term Mortality Fluctuations."
   },
   {
     "objectID": "projects/gaussian-process-valuation.html#problem",
@@ -96,48 +89,6 @@
     "title": "Gaussian Process Metamodeling for Financial Valuation",
     "section": "Stack",
     "text": "Stack\nPython · GPyTorch · scikit-learn · Pandas"
-  },
-  {
-    "objectID": "macro/term-structure-and-recession-signals.html",
-    "href": "macro/term-structure-and-recession-signals.html",
-    "title": "Term Structure Modeling & Recession Signals",
-    "section": "",
-    "text": "Note\n\n\n\nThis page is a working outline. The modeling work and the first dated view note are still in progress — check back for updates as the project develops."
-  },
-  {
-    "objectID": "macro/term-structure-and-recession-signals.html#motivation",
-    "href": "macro/term-structure-and-recession-signals.html#motivation",
-    "title": "Term Structure Modeling & Recession Signals",
-    "section": "Motivation",
-    "text": "Motivation\nEvery quantitative finance skill on this site so far (Heston SDEs, Gaussian Process metamodeling) is about pricing or estimation given a model of the world. This project is different: it’s about forming and defending an actual view on where the economy is headed, using the same stochastic-modeling toolkit pointed at a new problem — the Treasury yield curve."
-  },
-  {
-    "objectID": "macro/term-structure-and-recession-signals.html#plan",
-    "href": "macro/term-structure-and-recession-signals.html#plan",
-    "title": "Term Structure Modeling & Recession Signals",
-    "section": "Plan",
-    "text": "Plan\nPhase 1 — data and baseline\n\nPull historical Treasury yields (3-month, 2-year, 10-year) from FRED, plus NBER recession dates (USREC).\nReproduce the standard term-spread-vs-recession chart as a baseline, not the deliverable.\n\nPhase 2 — modeling\n\nFit a one-factor short-rate model (Vasicek or CIR — the same math as the variance process in the Heston pricer, applied to a new problem) to historical short-rate data via MLE, and track how the fitted mean-reversion speed and volatility shift across hiking/cutting cycles.\nBuild a recession-probability model in the spirit of the NY Fed’s term-spread probit approach, and backtest it honestly — including where it’s missed or mistimed historically.\nStretch goal: a regime-switching (HMM) model over macro and market data to identify expansion/contraction states unsupervised, checked against actual NBER dates.\n\nPhase 3 — the actual view\n\nA short, dated, opinionated note on what the current curve and the fitted model say, where it agrees or disagrees with the consensus narrative, and why.\nRevisited on a quarterly cadence rather than published once — the point is a running view, not a one-off report."
-  },
-  {
-    "objectID": "macro/term-structure-and-recession-signals.html#data-sources",
-    "href": "macro/term-structure-and-recession-signals.html#data-sources",
-    "title": "Term Structure Modeling & Recession Signals",
-    "section": "Data sources",
-    "text": "Data sources\n\nFRED: DGS3MO, DGS2, DGS10 (Treasury yields), FEDFUNDS, USREC (NBER recession indicator)."
-  },
-  {
-    "objectID": "macro/term-structure-and-recession-signals.html#open-questions",
-    "href": "macro/term-structure-and-recession-signals.html#open-questions",
-    "title": "Term Structure Modeling & Recession Signals",
-    "section": "Open questions",
-    "text": "Open questions\n\nHow much of the term-spread signal’s historical predictive power survives post-2008 zero/negative-rate distortions and post-2022 QT?\nDoes a fitted CIR mean-reversion parameter shift detectably ahead of NBER-dated turning points, or only concurrently?\n\nStack: Python · FRED API · NumPy · SciPy · statsmodels"
-  },
-  {
-    "objectID": "projects.html",
-    "href": "projects.html",
-    "title": "Projects",
-    "section": "",
-    "text": "Stochastic Volatility & Option Pricing — Heston Model\n\n\n\nquant finance\n\nC++\n\nmonte carlo\n\npython\n\n\n\nA hybrid C++/Python option pricing engine comparing multi-threaded Monte Carlo simulation against a semi-analytic Fourier pricer.\n\n\n\nJun 8, 2026\n\n\n\n\n\n\n\n\n\n\n\nAMR Load Balancing: LPT vs. Hilbert Curve Scheduling\n\n\n\nscientific computing\n\nparallel computing\n\nsimulation\n\n\n\nA 2D adaptive mesh refinement simulator comparing greedy load-balancing against space-filling-curve partitioning.\n\n\n\nMay 1, 2026\n\n\n\n\n\n\n\n\n\n\n\nGaussian Process Metamodeling for Financial Valuation\n\n\n\nmachine learning\n\ngaussian processes\n\nquant finance\n\n\n\nGP regression metamodels for fair-market valuation across a 190K-contract variable-annuity portfolio.\n\n\n\nJan 1, 2026\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "projects/amr-load-balancing.html",
@@ -196,32 +147,81 @@
     "text": "Takeaways\n\nLPT wins on raw load balance (imbalance often under 1%) but pays for it in communication cost — its partitions are spatially fragmented.\nHilbert SFC accepts a slightly higher load imbalance in exchange for dramatically lower communication cost, since it preserves spatial locality.\nWhich one wins on makespan depends on \\(\\beta\\) — the relative cost of communication vs. computation. On a high-latency interconnect, Hilbert’s locality advantage outweighs its imbalance; on a fast one, LPT’s tighter balance can win outright.\nThe open problem: a scheduler that gets LPT’s load-splitting power and Hilbert’s spatial awareness, cheaply enough to run every refinement step. That combination is still an active area in HPC scheduling research."
   },
   {
-    "objectID": "research/taxicab-hyperbolic-geometry.html",
-    "href": "research/taxicab-hyperbolic-geometry.html",
-    "title": "Geodesics & Hyperbolicity of Taxicab Half-Plane Space",
+    "objectID": "projects/heston-model.html",
+    "href": "projects/heston-model.html",
+    "title": "Stochastic Volatility & Option Pricing — Heston Model",
     "section": "",
-    "text": "Research done with a faculty-advised student team under Dr. Dylan Helliwell, Department of Mathematics, Seattle University. Funded by the College of Science and Engineering Summer Research program. Presented at the 2025 Seattle University STEM Research Summit and the 2026 PNW MAA conference."
+    "text": "This project implements a hybrid C++/Python option pricing framework under the Heston stochastic volatility model, comparing a multi-threaded Monte Carlo path simulator against a closed-form semi-analytic Fourier transform pricer. The full build-up — from first-principles probability, to Brownian motion, to SDEs, to the Heston model itself — along with all source code, lives in the GitHub repo.\nThe asset price and its instantaneous variance evolve as a pair of correlated SDEs:\n\\[dS_t = \\mu S_t\\, dt + \\sqrt{v_t}\\, S_t\\, dW_t^{(1)}\\] \\[dv_t = \\kappa(\\theta - v_t)\\, dt + \\xi \\sqrt{v_t}\\, dW_t^{(2)}\\]\nwith \\(dW_t^{(1)} dW_t^{(2)} = \\rho\\, dt\\)."
   },
   {
-    "objectID": "research/taxicab-hyperbolic-geometry.html#poster",
-    "href": "research/taxicab-hyperbolic-geometry.html#poster",
-    "title": "Geodesics & Hyperbolicity of Taxicab Half-Plane Space",
-    "section": "Poster",
-    "text": "Poster\n\n\nDownload the poster (PDF)"
+    "objectID": "projects/heston-model.html#overview",
+    "href": "projects/heston-model.html#overview",
+    "title": "Stochastic Volatility & Option Pricing — Heston Model",
+    "section": "",
+    "text": "This project implements a hybrid C++/Python option pricing framework under the Heston stochastic volatility model, comparing a multi-threaded Monte Carlo path simulator against a closed-form semi-analytic Fourier transform pricer. The full build-up — from first-principles probability, to Brownian motion, to SDEs, to the Heston model itself — along with all source code, lives in the GitHub repo.\nThe asset price and its instantaneous variance evolve as a pair of correlated SDEs:\n\\[dS_t = \\mu S_t\\, dt + \\sqrt{v_t}\\, S_t\\, dW_t^{(1)}\\] \\[dv_t = \\kappa(\\theta - v_t)\\, dt + \\xi \\sqrt{v_t}\\, dW_t^{(2)}\\]\nwith \\(dW_t^{(1)} dW_t^{(2)} = \\rho\\, dt\\)."
   },
   {
-    "objectID": "research/taxicab-hyperbolic-geometry.html#what-the-research-is-about",
-    "href": "research/taxicab-hyperbolic-geometry.html#what-the-research-is-about",
-    "title": "Geodesics & Hyperbolicity of Taxicab Half-Plane Space",
-    "section": "What the research is about",
-    "text": "What the research is about\nWe built a new geometric space by blending the half-plane model of the hyperbolic plane with taxicab (\\(L^1\\)) geometry, then asked whether the result is still “hyperbolic” in the rigorous sense Gromov defined for general metric spaces — a property that underlies a lot of modern geometric group theory.\nFor \\(m \\in [0,1]\\), the space is \\(\\left(\\mathbb{H}_m^2, \\lVert\\cdot\\rVert_m\\right)\\), where\n\\[\\mathbb{H}_m^2 = \\{x = (x_1, x_2) \\in \\mathbb{R}^2 : x_2 &gt; m x_1\\}, \\qquad \\lVert v \\rVert_{m,x} = \\frac{|v_1| + |v_2|}{x_2 - m x_1}.\\]\nInstead of the usual Euclidean norm on each tangent space (as in the standard hyperbolic half-plane), we put a taxicab norm there, scaled by distance to a boundary line at infinity that tilts as \\(m\\) varies from \\(0\\) (horizontal boundary) toward \\(1\\).\nGeodesics. By minimizing arc length \\(L(\\gamma) = \\int_0^1 \\lVert \\gamma'(t)\\rVert_m\\, dt\\) over curves connecting two points, we showed the shortest paths are concatenations of a coordinate-horizontal and a coordinate-vertical segment — an axis-aligned “corner” path, very much in the spirit of taxicab geometry, but now living on a curved boundary. This directly produces a closed-form distance function on \\(\\mathbb{H}_m^2\\).\nHyperbolicity. With a distance function in hand, we tested Gromov’s \\(\\delta\\)-hyperbolicity condition: for all points \\(x,y,z,w\\),\n\\[G(x,y;w) \\ge \\min\\{G(x,z;w),\\, G(y,z;w)\\} - \\delta, \\qquad G(x,y;z) = \\tfrac12\\big(d(x,z)+d(y,z)\\big) - d(x,y).\\]\nThrough case analysis on the geometry of how points sit relative to the boundary at infinity, we derived an explicit bound\n\\[f(x,y,z,w) \\le \\tfrac12 \\ln\\!\\left(\\frac{\\Omega(x,y)\\,\\Omega(z,w)}{\\max\\{\\Omega(x,z)\\Omega(y,w),\\ \\Omega(x,w)\\Omega(y,z)\\}}\\right) + \\tfrac{3}{2m}\\ln\\!\\left(\\frac{1+m}{1-m}\\right),\\]\nshowing \\(\\mathbb{H}_m^2\\) is \\(\\delta\\)-hyperbolic for a \\(\\delta\\) depending only on \\(m\\).\nOpen questions. The \\(m=1\\) (fully slanted) case, extensions to higher dimensions with horizontal or slanted hyperplanes at infinity, and behavior under quotient spaces are all open — see the poster’s Future Work panel."
+    "objectID": "projects/heston-model.html#what-i-built",
+    "href": "projects/heston-model.html#what-i-built",
+    "title": "Stochastic Volatility & Option Pricing — Heston Model",
+    "section": "What I built",
+    "text": "What I built\n\nA semi-analytic Fourier pricer using the Gatheral/Albrecher stable formulation of the Heston characteristic function, integrated via scipy.integrate.quad.\nA multi-threaded Monte Carlo engine written in C++ (Log-Euler scheme for the price process, full-truncation for variance) and exposed to Python via pybind11.\nSimulated up to 100K paths to evaluate Monte Carlo convergence against the semi-analytic baseline with 95% confidence intervals.\nA custom Matplotlib plotting suite for dual-axis overlays and side-by-side benchmark visualizations."
   },
   {
-    "objectID": "research/taxicab-hyperbolic-geometry.html#play-with-taxicab-distance",
-    "href": "research/taxicab-hyperbolic-geometry.html#play-with-taxicab-distance",
-    "title": "Geodesics & Hyperbolicity of Taxicab Half-Plane Space",
-    "section": "Play with taxicab distance",
-    "text": "Play with taxicab distance\nThe core idea underneath all of this — swap the usual straight-line (“Euclidean”) notion of distance for the taxicab one — is easiest to build intuition for with a plain grid. Drag the sliders to move point B and compare the two notions of “shortest path” from A to B.\n\n\nCode\nviewof bx = Inputs.range([-6, 6], {value: 4, step: 1, label: \"Point B — x\"})\n\n\n\n\n\n\n\n\n\nCode\nviewof by = Inputs.range([-6, 6], {value: 3, step: 1, label: \"Point B — y\"})\n\n\n\n\n\n\n\n\n\nCode\nviewof showCircles = Inputs.toggle({label: \"Show equal-distance \\\"circles\\\" around A\", value: false})\n\n\n\n\n\n\n\n\n\nCode\ntaxicabPlot = {\n  const width = 480, height = 480, pad = 30;\n  const domain = 7;\n  const scale = (width - 2 * pad) / (2 * domain);\n  const toSvgX = x =&gt; pad + (x + domain) * scale;\n  const toSvgY = y =&gt; height - pad - (y + domain) * scale;\n\n  const svg = d3.create(\"svg\")\n      .attr(\"viewBox\", [0, 0, width, height])\n      .attr(\"width\", width)\n      .attr(\"height\", height)\n      .style(\"font-family\", \"sans-serif\")\n      .style(\"font-size\", \"11px\");\n\n  for (let i = -domain; i &lt;= domain; i++) {\n    svg.append(\"line\")\n       .attr(\"x1\", toSvgX(i)).attr(\"x2\", toSvgX(i))\n       .attr(\"y1\", toSvgY(-domain)).attr(\"y2\", toSvgY(domain))\n       .attr(\"stroke\", \"#ddd\").attr(\"stroke-width\", i === 0 ? 1.5 : 0.5);\n    svg.append(\"line\")\n       .attr(\"y1\", toSvgY(i)).attr(\"y2\", toSvgY(i))\n       .attr(\"x1\", toSvgX(-domain)).attr(\"x2\", toSvgX(domain))\n       .attr(\"stroke\", \"#ddd\").attr(\"stroke-width\", i === 0 ? 1.5 : 0.5);\n  }\n\n  const dTaxi = Math.abs(bx) + Math.abs(by);\n\n  if (showCircles && dTaxi &gt; 0) {\n    svg.append(\"circle\")\n       .attr(\"cx\", toSvgX(0)).attr(\"cy\", toSvgY(0))\n       .attr(\"r\", dTaxi * scale)\n       .attr(\"fill\", \"none\").attr(\"stroke\", \"#a22c29\")\n       .attr(\"stroke-dasharray\", \"4,3\").attr(\"stroke-width\", 1.5);\n\n    const pts = [[dTaxi, 0], [0, dTaxi], [-dTaxi, 0], [0, -dTaxi]]\n      .map(([x, y]) =&gt; `${toSvgX(x)},${toSvgY(y)}`).join(\" \");\n    svg.append(\"polygon\").attr(\"points\", pts)\n       .attr(\"fill\", \"#b9baa3\").attr(\"fill-opacity\", 0.25)\n       .attr(\"stroke\", \"#556b2f\").attr(\"stroke-width\", 1.5);\n  }\n\n  svg.append(\"line\")\n     .attr(\"x1\", toSvgX(0)).attr(\"y1\", toSvgY(0))\n     .attr(\"x2\", toSvgX(bx)).attr(\"y2\", toSvgY(by))\n     .attr(\"stroke\", \"#a22c29\").attr(\"stroke-width\", 2).attr(\"stroke-dasharray\", \"6,4\");\n\n  svg.append(\"polyline\")\n     .attr(\"points\", `${toSvgX(0)},${toSvgY(0)} ${toSvgX(bx)},${toSvgY(0)} ${toSvgX(bx)},${toSvgY(by)}`)\n     .attr(\"fill\", \"none\").attr(\"stroke\", \"#2c6ea2\").attr(\"stroke-width\", 2.5);\n\n  svg.append(\"circle\").attr(\"cx\", toSvgX(0)).attr(\"cy\", toSvgY(0)).attr(\"r\", 5).attr(\"fill\", \"#111\");\n  svg.append(\"text\").attr(\"x\", toSvgX(0) + 8).attr(\"y\", toSvgY(0) - 8).text(\"A\");\n\n  svg.append(\"circle\").attr(\"cx\", toSvgX(bx)).attr(\"cy\", toSvgY(by)).attr(\"r\", 5).attr(\"fill\", \"#2c6ea2\");\n  svg.append(\"text\").attr(\"x\", toSvgX(bx) + 8).attr(\"y\", toSvgY(by) - 8).text(\"B\");\n\n  return svg.node();\n}\n\n\n\n\n\n\n\n\n\nCode\nmd`**Euclidean distance (dashed red line):** ${Math.hypot(bx, by).toFixed(2)}\n**Taxicab distance (blue \"city block\" path):** ${Math.abs(bx) + Math.abs(by)}\n\n${showCircles ? \"The dashed red circle is every point at the Euclidean distance you see above from A. The green **diamond** is every point at that *same number* of taxicab blocks from A — under the taxicab metric, that diamond is a perfect \\\"circle.\\\"\" : \"\"}`\n\n\n\n\n\n\n\nEvery red-dashed line above is the only shortest Euclidean path between A and B. The blue path is just one shortest taxicab path — any staircase of unit right/up steps from A to B has exactly the same taxicab length, since you can’t do better than the total horizontal and vertical distance combined. That’s the same idea driving the poster above: once you replace the notion of “straight line” with a taxicab norm, distances, shortest paths, and even circles change shape — and the research asks how far that idea can be pushed while keeping the space provably hyperbolic."
+    "objectID": "projects/heston-model.html#results",
+    "href": "projects/heston-model.html#results",
+    "title": "Stochastic Volatility & Option Pricing — Heston Model",
+    "section": "Results",
+    "text": "Results\nA simulated Heston path, showing the asset price responding to its own stochastic, mean-reverting variance process:\n\n\n\nSimulated asset price with its overlaid instantaneous variance path.\n\n\nMonte Carlo price estimates converge tightly to the semi-analytic solution as path count grows, and the C++ engine delivers a consistent speedup over the pure-Python Monte Carlo implementation:\n\n\n\nMonte Carlo convergence to the semi-analytic price (left) and C++ vs. Python runtime across path counts (right).\n\n\nThe multi-threaded C++ implementation achieves roughly a 3–5x speedup over pure Python at large path counts, while both converge to the same semi-analytic option price of 10.39."
+  },
+  {
+    "objectID": "projects/heston-model.html#stack",
+    "href": "projects/heston-model.html#stack",
+    "title": "Stochastic Volatility & Option Pricing — Heston Model",
+    "section": "Stack",
+    "text": "Stack\nPython · C++ (pybind11, C++11 threads) · NumPy · SciPy · Matplotlib"
+  },
+  {
+    "objectID": "projects/gp-mortality-stmf.html",
+    "href": "projects/gp-mortality-stmf.html",
+    "title": "GP Modeling of Short-Term Mortality Fluctuations",
+    "section": "",
+    "text": "This project is a full solution to Research Project 6: Advanced GP Modeling of Short-Term Mortality Data from Springer’s An Invitation to Undergraduate Research in Risk Management — a companion piece to the GP metamodeling project, pointing the same GPyTorch toolkit at open mortality data. All code, data, and figures live in the GitHub repo.\nThe data are weekly all-cause death rates for the USA from the Short-Term Mortality Fluctuations (STMF) database, five age groups × male/female, 2015–2023 (final-vintage data only). The official file arrives in wide format — death counts and rates for each age band spread across columns — and is reshaped to long format with age treated categorically (one GP per sex × age series): STMF’s five coarse, unevenly spaced bands differ by whole units of log-rate, so forcing a shared stationary kernel across a numeric age input would impose smoothness on a dimension observed at five points.\nWeekly mortality has two features annual data can’t show: a strong winter seasonal cycle, and the COVID-19 shock —\n\n\n\nAverage intra-year mortality profile by age group, COVID years excluded. Seasonal amplitude rises steeply with age."
+  },
+  {
+    "objectID": "projects/gp-mortality-stmf.html#overview",
+    "href": "projects/gp-mortality-stmf.html#overview",
+    "title": "GP Modeling of Short-Term Mortality Fluctuations",
+    "section": "",
+    "text": "This project is a full solution to Research Project 6: Advanced GP Modeling of Short-Term Mortality Data from Springer’s An Invitation to Undergraduate Research in Risk Management — a companion piece to the GP metamodeling project, pointing the same GPyTorch toolkit at open mortality data. All code, data, and figures live in the GitHub repo.\nThe data are weekly all-cause death rates for the USA from the Short-Term Mortality Fluctuations (STMF) database, five age groups × male/female, 2015–2023 (final-vintage data only). The official file arrives in wide format — death counts and rates for each age band spread across columns — and is reshaped to long format with age treated categorically (one GP per sex × age series): STMF’s five coarse, unevenly spaced bands differ by whole units of log-rate, so forcing a shared stationary kernel across a numeric age input would impose smoothness on a dimension observed at five points.\nWeekly mortality has two features annual data can’t show: a strong winter seasonal cycle, and the COVID-19 shock —\n\n\n\nAverage intra-year mortality profile by age group, COVID years excluded. Seasonal amplitude rises steeply with age."
+  },
+  {
+    "objectID": "projects/gp-mortality-stmf.html#research-questions",
+    "href": "projects/gp-mortality-stmf.html#research-questions",
+    "title": "GP Modeling of Short-Term Mortality Fluctuations",
+    "section": "Research questions",
+    "text": "Research questions\n\nHow large is intra-year mortality seasonality, and how does it scale with age?\nWhat does the COVID shock do to a stationary GP — and what kernel structure repairs it?\nDo the sexes differ in seasonal amplitude or trend?\nWhat does weekly modeling add over the book’s Sect. 3-style annualized GP models?"
+  },
+  {
+    "objectID": "projects/gp-mortality-stmf.html#models",
+    "href": "projects/gp-mortality-stmf.html#models",
+    "title": "GP Modeling of Short-Term Mortality Fluctuations",
+    "section": "Models",
+    "text": "Models\nExact GPs (GPyTorch) on \\(y = \\log\\) (annualized weekly death rate), input \\(x = t\\) in decimal years, linear prior mean. The model zoo, per series:\n\n\n\n\n\n\n\nModel\nKernel\n\n\n\n\nannual\nMatérn-5/2 on annual aggregates (the Sect. 3 baseline)\n\n\ntrend\nMatérn-5/2\n\n\nseasonal\nMatérn-5/2 + Periodic (period fixed at 1 yr)\n\n\nquasi\nMatérn-5/2 (lengthscale ≥ 1 yr) + Periodic × Matérn + Matérn-1/2 (lengthscale ≤ 0.25 yr)\n\n\n\nThe quasi model’s constraints are the interesting part. Fit to 2015–2023 data, an unconstrained trend kernel shrinks its lengthscale to ≈ 0.1 yr — the “smooth trend” degenerates into a wiggly interpolator chasing COVID waves. Constraining the trend to stay slow and adding an explicit short-lengthscale shock channel restores an interpretable decomposition:\n\n\n\nQuasi-periodic GP fit for ages 85+ (female): data + posterior (top), seasonal component (middle), shock component (bottom). The shock channel isolates the 2018 flu winter, April 2020, the 2020–21 winter wave, and Omicron."
+  },
+  {
+    "objectID": "projects/gp-mortality-stmf.html#results",
+    "href": "projects/gp-mortality-stmf.html#results",
+    "title": "GP Modeling of Short-Term Mortality Fluctuations",
+    "section": "Results",
+    "text": "Results\nCOVID breaks a stationary GP exactly as it should. Trained through 2019 and extrapolated into 2020, the seasonal GP’s 95% intervals cover only 19–26% of 2020 weeks for ages 65–84 (nominal 95%), with average rate errors above 20%:\n\n\n\nSeasonal GP trained through 2019, extrapolated into 2020. Reality leaves the 95% band within weeks of March 2020.\n\n\nSeasonality scales with age; the sexes barely differ in it. Fitted seasonal amplitude grows monotonically from ≈10% (ages 15–64) to ≈16% (85+) peak swing, nearly identical across sexes — while levels differ by a large male excess everywhere, and both sexes share improving post-COVID trends at 65+ of roughly 1.5–2.5%/yr:\n\n\n\nFitted seasonal amplitude by age group and sex, from the quasi-periodic GP.\n\n\nWeekly and annual GPs agree on the long run — and only there. The annualized baseline fits trend lengthscales of ≈4–6 yr, matching the weekly quasi-GP’s — but everything sub-annual (flu winters, COVID wave timing, seasonality itself) is invisible to it, absorbed into its noise term:\n\n\n\nThe Sect. 3-style annual GP over the weekly data it never sees.\n\n\nLikelihood alone rewards the wrong model. BIC prefers the unconstrained seasonal model (its trend kernel is free to chase COVID, buying in-sample likelihood), but on a 2023 hold-out the constrained quasi model wins decisively: mean RMSE 0.083 vs 0.141 log units, 95%-interval coverage 0.89 vs 0.76, NLPD −0.75 vs −0.06. The interpretability constraints turn out to be the better forecasting prior — a clean miniature of the project brief’s “refine and iterate” cycle.\nResidual diagnostics (against week-of-year, calendar year, and age group) are flat for adult series at ≈±0.003 log units; the 0–14 series is dominated by small-count observation noise (fitted noise SD ≈0.05 vs ≈0.006 for adults), and the GP correctly declines to find seasonal signal in it."
+  },
+  {
+    "objectID": "projects/gp-mortality-stmf.html#stack",
+    "href": "projects/gp-mortality-stmf.html#stack",
+    "title": "GP Modeling of Short-Term Mortality Fluctuations",
+    "section": "Stack",
+    "text": "Stack\nPython · GPyTorch · PyTorch · Pandas · Matplotlib"
   },
   {
     "objectID": "macro.html",
@@ -229,5 +229,47 @@
     "title": "Macro Notes",
     "section": "",
     "text": "Term Structure Modeling & Recession Signals\n\n\n\nmacro\n\ninterest rates\n\ntime series\n\n\n\nFitting short-rate models to the Treasury curve and backtesting the term-spread recession signal — plus a running, dated view on what the current curve is saying.\n\n\n\n\n\nJul 14, 2026\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "research.html",
+    "href": "research.html",
+    "title": "Research",
+    "section": "",
+    "text": "Geodesics & Hyperbolicity of Taxicab Half-Plane Space\n\n\n\nresearch\n\ngeometry\n\nmathematics\n\n\n\nUndergraduate research blending the hyperbolic half-plane model with taxicab geometry — poster session at the 2025 Seattle University STEM Research Summit.\n\n\n\n\n\nOct 1, 2025\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "macro/term-structure-and-recession-signals.html",
+    "href": "macro/term-structure-and-recession-signals.html",
+    "title": "Term Structure Modeling & Recession Signals",
+    "section": "",
+    "text": "Note\n\n\n\nThis page is a working outline. The modeling work and the first dated view note are still in progress — check back for updates as the project develops."
+  },
+  {
+    "objectID": "macro/term-structure-and-recession-signals.html#motivation",
+    "href": "macro/term-structure-and-recession-signals.html#motivation",
+    "title": "Term Structure Modeling & Recession Signals",
+    "section": "Motivation",
+    "text": "Motivation\nEvery quantitative finance skill on this site so far (Heston SDEs, Gaussian Process metamodeling) is about pricing or estimation given a model of the world. This project is different: it’s about forming and defending an actual view on where the economy is headed, using the same stochastic-modeling toolkit pointed at a new problem — the Treasury yield curve."
+  },
+  {
+    "objectID": "macro/term-structure-and-recession-signals.html#plan",
+    "href": "macro/term-structure-and-recession-signals.html#plan",
+    "title": "Term Structure Modeling & Recession Signals",
+    "section": "Plan",
+    "text": "Plan\nPhase 1 — data and baseline\n\nPull historical Treasury yields (3-month, 2-year, 10-year) from FRED, plus NBER recession dates (USREC).\nReproduce the standard term-spread-vs-recession chart as a baseline, not the deliverable.\n\nPhase 2 — modeling\n\nFit a one-factor short-rate model (Vasicek or CIR — the same math as the variance process in the Heston pricer, applied to a new problem) to historical short-rate data via MLE, and track how the fitted mean-reversion speed and volatility shift across hiking/cutting cycles.\nBuild a recession-probability model in the spirit of the NY Fed’s term-spread probit approach, and backtest it honestly — including where it’s missed or mistimed historically.\nStretch goal: a regime-switching (HMM) model over macro and market data to identify expansion/contraction states unsupervised, checked against actual NBER dates.\n\nPhase 3 — the actual view\n\nA short, dated, opinionated note on what the current curve and the fitted model say, where it agrees or disagrees with the consensus narrative, and why.\nRevisited on a quarterly cadence rather than published once — the point is a running view, not a one-off report."
+  },
+  {
+    "objectID": "macro/term-structure-and-recession-signals.html#data-sources",
+    "href": "macro/term-structure-and-recession-signals.html#data-sources",
+    "title": "Term Structure Modeling & Recession Signals",
+    "section": "Data sources",
+    "text": "Data sources\n\nFRED: DGS3MO, DGS2, DGS10 (Treasury yields), FEDFUNDS, USREC (NBER recession indicator)."
+  },
+  {
+    "objectID": "macro/term-structure-and-recession-signals.html#open-questions",
+    "href": "macro/term-structure-and-recession-signals.html#open-questions",
+    "title": "Term Structure Modeling & Recession Signals",
+    "section": "Open questions",
+    "text": "Open questions\n\nHow much of the term-spread signal’s historical predictive power survives post-2008 zero/negative-rate distortions and post-2022 QT?\nDoes a fitted CIR mean-reversion parameter shift detectably ahead of NBER-dated turning points, or only concurrently?\n\nStack: Python · FRED API · NumPy · SciPy · statsmodels"
   }
 ]
