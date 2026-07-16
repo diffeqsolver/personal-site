@@ -8,7 +8,7 @@ image: images/mortality-gp_decomposition_85p_f.png
 
 ## Overview
 
-This project is a full solution to **Research Project 6: Advanced GP Modeling of Short-Term Mortality Data** from Springer's *An Invitation to Undergraduate Research in Risk Management* — a companion piece to the [GP metamodeling project](gaussian-process-valuation.qmd), pointing the same GPyTorch toolkit at open mortality data. All code, data, and figures live in the [GitHub repo](https://github.com/diffeqsolver/mortality-gp).
+This project is a full solution to **Research Project 6: Advanced GP Modeling of Short-Term Mortality Data** from Springer's *An Invitation to Undergraduate Research in Risk Management*, pointing the GPyTorch toolkit at open mortality data. All code, data, and figures live in the [GitHub repo](https://github.com/diffeqsolver/mortality-gp).
 
 The data are weekly all-cause death rates for the USA from the [Short-Term Mortality Fluctuations (STMF) database](https://www.mortality.org/Data/STMF), five age groups × male/female, 2015–2023 (final-vintage data only). The official file arrives in *wide* format — death counts and rates for each age band spread across columns — and is reshaped to long format with age treated **categorically** (one GP per sex × age series): STMF's five coarse, unevenly spaced bands differ by whole units of log-rate, so forcing a shared stationary kernel across a numeric age input would impose smoothness on a dimension observed at five points.
 
