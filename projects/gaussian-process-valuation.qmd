@@ -6,7 +6,7 @@ categories: [machine learning, gaussian processes, quant finance]
 ---
 
 ::: {.callout-note}
-This page is a working outline — full write-up and code walkthrough coming later. The underlying dataset and production pipeline are not public, so this project won't have an executable demo like the [Heston model](heston-model.qmd); this outline covers the methodology and findings.
+This page is a working outline — full write-up and code walkthrough coming later. The underlying dataset and production pipeline are not public, so this project won't have an executable demo like the [Heston model](heston-model.qmd); this outline covers the methodology and findings. For a fully worked, open-data GP project with the same toolkit — code, figures, and all — see [GP Modeling of Short-Term Mortality Fluctuations](gp-mortality-stmf.qmd).
 :::
 
 ## Problem
