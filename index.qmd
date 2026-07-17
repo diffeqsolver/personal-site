@@ -11,4 +11,4 @@ My recent work spans stochastic volatility modeling and option pricing, Gaussian
 - **[Projects](projects.qmd)** — quant finance, ML, and scientific computing builds
 - **[Research](research.qmd)** — write-ups and explorations
 
-Reach me at [lukalawrence24@gmail.com](mailto:lukalawrence24@gmail.com), on [GitHub](https://github.com/diffeqsolver), or on [LinkedIn](https://linkedin.com/in/luke-lawrence).
+Reach me at [lukalawrence24@gmail.com](mailto:lukalawrence24@gmail.com), on [GitHub](https://github.com/diffeqsolver), or on [LinkedIn](https://www.linkedin.com/in/luke-lawrence-math/).
