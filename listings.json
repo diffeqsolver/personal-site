@@ -1,5 +1,11 @@
 [
   {
+    "listing": "/research.html",
+    "items": [
+      "/research/taxicab-hyperbolic-geometry.html"
+    ]
+  },
+  {
     "listing": "/projects.html",
     "items": [
       "/projects/gp-mortality-stmf.html",
@@ -11,12 +17,6 @@
     "listing": "/macro.html",
     "items": [
       "/macro/term-structure-and-recession-signals.html"
-    ]
-  },
-  {
-    "listing": "/research.html",
-    "items": [
-      "/research/taxicab-hyperbolic-geometry.html"
     ]
   }
 ]
